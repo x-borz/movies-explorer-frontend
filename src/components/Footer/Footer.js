@@ -9,13 +9,13 @@ function Footer(props) {
   return (
     <footer className='footer'>
       <p className='footer__description'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
-      <div className='footer__footer'>
+      <div className='footer__container'>
         <p className='footer__copyright'>© {new Date().getFullYear()}</p>
         <nav>
           <ul className='footer__links'>
             {links.map((link, i) =>
               <li>
-                <a className='footer__link' target='_blank' href={link.url} key={i}>{link.name}</a>
+                <a className='footer__link' target='_blank' rel='noreferrer'  href={link.url} key={i}>{link.name}</a>
               </li>
             )}
           </ul>
