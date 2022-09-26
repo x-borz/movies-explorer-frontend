@@ -1,0 +1,28 @@
+import './Footer.css';
+
+function Footer(props) {
+  const links = [
+    {name: 'Яндекс.Практикум', url: 'https://practicum.yandex.ru/'},
+    {name: 'Github', url: 'https://github.com/x-borz/'}
+  ];
+
+  return (
+    <footer className='footer'>
+      <p className='footer__description'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
+      <div className='footer__footer'>
+        <p className='footer__copyright'>© {new Date().getFullYear()}</p>
+        <nav>
+          <ul className='footer__links'>
+            {links.map((link, i) =>
+              <li>
+                <a className='footer__link' target='_blank' href={link.url} key={i}>{link.name}</a>
+              </li>
+            )}
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;

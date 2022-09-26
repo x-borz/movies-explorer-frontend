@@ -1,0 +1,78 @@
+.about-me {
+  padding: 0 calc((100% - 1280px) / 2);
+  background: #202020;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__section-title {
+  margin: 110px 70px 0 70px;
+}
+
+.about-me__student-dossier {
+  margin: 66px 70px 0 70px;
+  display: flex;
+}
+
+.about-me__student-photo {
+  margin-left: auto;
+  width: 270px;
+  height: 327px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.about-me__student-info {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.about-me__student-name {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.about-me__student-profession {
+  margin: 20px 0 0 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
+  color: #fff;
+  mix-blend-mode: normal;
+}
+
+.about-me__student-description {
+  margin: 24px 0 0 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.57;
+  color: #fff;
+  mix-blend-mode: normal;
+}
+
+.about-me__link {
+  font-style: normal;
+  margin-top: 99px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity .3s linear;
+}
+
+.about-me__link:hover {
+  opacity: .7;
+}
