@@ -1,0 +1,36 @@
+.nav-tab {
+  padding: 0 calc((100% - 1280px) / 2);
+  background: #272727;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-tab__links {
+  margin: 24px 70px;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+.nav-tab__link-wrapper {
+  margin-right: 40px;
+}
+
+.nav-tab__link-wrapper:last-of-type {
+  margin-right: 0;
+}
+
+.nav-tab__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #fff;
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+  transition: opacity .3s linear;
+}
+
+.nav-tab__link:hover {
+  opacity: .7;
+}

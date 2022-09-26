@@ -3,7 +3,7 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutProject(props) {
   return (
-    <section className='about_project'>
+    <section className='about_project' id='about_project'>
       <SectionTitle modifier={'about_project__section-title'}>О проекте</SectionTitle>
       <ul className='about_project__characteristics-list'>
         <li>

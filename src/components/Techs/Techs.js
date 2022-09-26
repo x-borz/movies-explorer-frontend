@@ -5,7 +5,7 @@ function Techs(props) {
   const technologies = ['HTML', 'CSS', 'JS', 'React', 'Git', 'express.js', 'mongoDB'];
 
   return (
-    <section className='techs'>
+    <section className='techs' id='techs'>
       <SectionTitle modifier={'techs__section-title'}>Технологии</SectionTitle>
       <h3 className='techs__subtitle'>7 технологий</h3>
       <p className='techs__paragraph'>На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые применили в&nbsp;дипломном проекте.</p>

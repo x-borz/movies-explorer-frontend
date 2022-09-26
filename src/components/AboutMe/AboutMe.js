@@ -4,7 +4,7 @@ import photo from '../../images/photo.jpg';
 
 function AboutMe(props) {
   return (
-    <section className='about-me'>
+    <section className='about-me' id='about-me'>
       <SectionTitle modifier={'about-me__section-title'}>Студент</SectionTitle>
       <div className='about-me__student-dossier'>
         <div className='about-me__student-info'>
