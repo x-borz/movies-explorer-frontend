@@ -9,17 +9,19 @@ function Portfolio(props) {
 
   return (
     <section className='portfolio'>
-      <nav className='portfolio__nav'>
+      <div className='portfolio__container'>
         <h2 className='portfolio__title'>Портфолио</h2>
-        <ul className='portfolio__links'>
-          {links.map((link, i) =>
-            <li key={i} className='portfolio__link-row'>
-              <p className='portfolio__link-title'>{link.name}</p>
-              <a className='portfolio__link' href={link.url} target='_blank'>↗</a>
-            </li>
-          )}
-        </ul>
-      </nav>
+        <nav className='portfolio__nav'>
+          <ul className='portfolio__links'>
+            {links.map((link, i) =>
+              <li key={i} className='portfolio__link-row'>
+                <p className='portfolio__link-title'>{link.name}</p>
+                <a className='portfolio__link' rel='noreferrer' href={link.url} target='_blank'>↗</a>
+              </li>
+            )}
+          </ul>
+        </nav>
+      </div>
     </section>
   );
 }

@@ -1,12 +1,11 @@
 .nav-tab {
-  padding: 0 calc((100% - 1280px) / 2);
   background: #272727;
   display: flex;
   justify-content: center;
 }
 
 .nav-tab__links {
-  margin: 24px 70px;
+  margin: 24px 0;
   padding: 0;
   list-style-type: none;
   display: flex;

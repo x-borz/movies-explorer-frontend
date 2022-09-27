@@ -1,6 +1,10 @@
 .about_project {
-  padding: 0 calc((100% - 1280px) / 2);
   background: #202020;
+}
+
+.about_project__container {
+  max-width: 1280px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }

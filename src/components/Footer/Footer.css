@@ -1,6 +1,10 @@
 .footer {
-  padding: 0 calc((100% - 1280px) / 2);
   background: #202020;
+}
+
+.footer__container {
+  max-width: 1280px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
@@ -17,8 +21,8 @@
   border-bottom: #424242 1px solid;
 }
 
-.footer__container {
-  margin: 20px 70px 20px 70px;
+.footer__wrapper {
+  margin: 18px 70px 20px 70px;
   display: flex;
 }
 
