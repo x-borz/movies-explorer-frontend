@@ -21,9 +21,21 @@
   border-bottom: #424242 1px solid;
 }
 
+@media screen and (max-width: 900px) {
+  .footer__description {
+    margin: 79px 30px 0 30px;
+  }
+}
+
 .footer__wrapper {
   margin: 18px 70px 20px 70px;
   display: flex;
+}
+
+@media screen and (max-width: 900px) {
+  .footer__wrapper {
+    margin: 18px 30px 20px 30px;
+  }
 }
 
 .footer__copyright {

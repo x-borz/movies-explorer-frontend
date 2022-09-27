@@ -13,27 +13,49 @@
   margin: 112px 70px 0 70px;
 }
 
+@media screen and (max-width: 900px) {
+  .about-me__section-title {
+    margin: 90px 50px 0 50px;
+  }
+}
+
 .about-me__student-dossier {
   margin: 64px 70px 0 70px;
-  display: flex;
+  display: grid;
+  grid-template-areas: "name photo"
+                       "profession photo"
+                       "description photo"
+                       "url photo";
+  grid-template-rows: auto auto auto 1fr;
+}
+
+@media screen and (max-width: 900px) {
+  .about-me__student-dossier {
+    margin: 66px 50px 0 50px;
+  }
 }
 
 .about-me__student-photo {
-  margin-left: auto;
+  grid-area: photo;
+  margin-left: 20px;
+  min-width: 270px;
   width: 270px;
   height: 327px;
   object-fit: cover;
   border-radius: 10px;
+  justify-self: end;
 }
 
-.about-me__student-info {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  max-width: 600px;
+@media screen and (max-width: 900px) {
+  .about-me__student-photo {
+    min-width: 255px;
+    width: 255px;
+    height: 307px;
+  }
 }
 
 .about-me__student-name {
+  grid-area: name;
   margin: 0;
   padding: 0;
   font-style: normal;
@@ -42,9 +64,19 @@
   line-height: 1.16;
   letter-spacing: -0.04em;
   color: #fff;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 900px) {
+  .about-me__student-name {
+    font-size: 40px;
+    line-height: 1;
+    max-width: 364px;
+  }
 }
 
 .about-me__student-profession {
+  grid-area: profession;
   margin: 20px 0 0 0;
   padding: 0;
   font-style: normal;
@@ -53,9 +85,20 @@
   line-height: 1.11;
   color: #fff;
   mix-blend-mode: normal;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 900px) {
+  .about-me__student-profession {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 364px;
+  }
 }
 
 .about-me__student-description {
+  grid-area: description;
   margin: 24px 0 0 0;
   padding: 0;
   font-style: normal;
@@ -64,17 +107,28 @@
   line-height: 1.57;
   color: #fff;
   mix-blend-mode: normal;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 900px) {
+  .about-me__student-description {
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 364px;
+  }
 }
 
 .about-me__link {
+  grid-area: url;
   font-style: normal;
-  margin-top: 99px;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.21;
   color: #fff;
   text-decoration: none;
   transition: opacity .3s linear;
+  align-self: end;
 }
 
 .about-me__link:hover {

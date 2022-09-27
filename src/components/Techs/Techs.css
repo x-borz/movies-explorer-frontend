@@ -14,6 +14,12 @@
   margin: 100px 70px 0 70px;
 }
 
+@media screen and (max-width: 900px) {
+  .techs__section-title {
+    margin: 90px 50px 0 50px;
+  }
+}
+
 .techs__subtitle {
   margin: 89px 0 0 0;
   padding: 0;
@@ -21,10 +27,16 @@
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
-  line-height: 58px;
+  line-height: 1.16;
   text-align: center;
   letter-spacing: -0.04em;
   color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .techs__subtitle {
+    margin-top: 80px;
+  }
 }
 
 .techs__paragraph {
@@ -40,6 +52,14 @@
   color: #fff;
 }
 
+@media screen and (max-width: 900px) {
+  .techs__paragraph {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
 .techs__technologies-list {
   margin: 100px 0;
   padding: 0;
@@ -47,6 +67,12 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   column-gap: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .techs__technologies-list {
+    margin: 83px 0 90px 0;
+  }
 }
 
 .techs__technology-item {
@@ -60,7 +86,16 @@
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  line-height: 17px;
+  line-height: 1.21;
   letter-spacing: -0.04em;
   color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .techs__technology-item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
 }
