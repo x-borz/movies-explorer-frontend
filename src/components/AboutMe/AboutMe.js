@@ -1,12 +1,11 @@
 import './AboutMe.css';
-import SectionTitle from "../SectionTitle/SectionTitle";
 import photo from '../../images/photo.jpg';
 
 function AboutMe(props) {
   return (
     <section className='about-me' id='about-me'>
       <div className='about-me__container'>
-        <SectionTitle modifier={'about-me__section-title'}>Студент</SectionTitle>
+        <h2 className='about-me__section-title'>Студент</h2>
         <div className='about-me__student-dossier'>
           <h3 className='about-me__student-name'>Ренат</h3>
           <p className='about-me__student-profession'>Фронтенд-разработчик, 40 лет</p>

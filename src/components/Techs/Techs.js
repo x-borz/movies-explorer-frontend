@@ -1,5 +1,4 @@
 import './Techs.css';
-import SectionTitle from "../SectionTitle/SectionTitle";
 
 function Techs(props) {
   const technologies = ['HTML', 'CSS', 'JS', 'React', 'Git', 'express.js', 'mongoDB'];
@@ -7,7 +6,7 @@ function Techs(props) {
   return (
     <section className='techs' id='techs'>
       <div className='techs__container'>
-        <SectionTitle modifier={'techs__section-title'}>Технологии</SectionTitle>
+        <h2 className='techs__section-title'>Технологии</h2>
         <h3 className='techs__subtitle'>7 технологий</h3>
         <p className='techs__paragraph'>На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые применили в&nbsp;дипломном проекте.</p>
         <ul className='techs__technologies-list'>

@@ -11,6 +11,15 @@
 
 .about-me__section-title {
   margin: 112px 70px 0 70px;
+  padding: 0 0 23px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.21;
+  letter-spacing: -0.04em;
+  color: #fff;
+  border-bottom: #dadada solid 1px;
+  align-self: stretch;
 }
 
 @media screen and (max-width: 900px) {

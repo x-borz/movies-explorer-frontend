@@ -1,11 +1,10 @@
 import './AboutProject.css';
-import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutProject(props) {
   return (
     <section className='about_project' id='about_project'>
       <div className='about_project__container'>
-        <SectionTitle modifier={'about_project__section-title'}>О проекте</SectionTitle>
+        <h2 className='about_project__section-title'>О проекте</h2>
         <ul className='about_project__characteristics-list'>
           <li>
             <h3 className='about_project__characteristic-title'>Дипломный проект включал 5 этапов</h3>
