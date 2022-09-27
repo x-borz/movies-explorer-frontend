@@ -28,6 +28,14 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .about-me__section-title {
+    margin: 71px 14px 0 14px;
+    font-size: 18px;
+    padding-bottom: 28px;
+  }
+}
+
 .about-me__student-dossier {
   margin: 64px 70px 0 70px;
   display: grid;
@@ -41,6 +49,17 @@
 @media screen and (max-width: 900px) {
   .about-me__student-dossier {
     margin: 66px 50px 0 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__student-dossier {
+    grid-template-areas: "photo"
+                         "name"
+                         "profession"
+                         "description"
+                         "url";
+    margin: 60px 14px 0 14px;
   }
 }
 
@@ -63,6 +82,16 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .about-me__student-photo {
+    min-width: 292px;
+    width: 292px;
+    height: 352px;
+    margin-left: 0;
+    justify-self: center;
+  }
+}
+
 .about-me__student-name {
   grid-area: name;
   margin: 0;
@@ -81,6 +110,15 @@
     font-size: 40px;
     line-height: 1;
     max-width: 364px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__student-name {
+    margin-top: 40px;
+    font-size: 30px;
+    line-height: 1.2;
+    max-width: 572px;
   }
 }
 
@@ -106,6 +144,15 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .about-me__student-profession {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 1.45;
+    max-width: 572px;
+  }
+}
+
 .about-me__student-description {
   grid-area: description;
   margin: 24px 0 0 0;
@@ -128,6 +175,15 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .about-me__student-description {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 1.45;
+    max-width: 572px;
+  }
+}
+
 .about-me__link {
   grid-area: url;
   font-style: normal;
@@ -138,6 +194,12 @@
   text-decoration: none;
   transition: opacity .3s linear;
   align-self: end;
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__link {
+    margin-top: 40px;
+  }
 }
 
 .about-me__link:hover {

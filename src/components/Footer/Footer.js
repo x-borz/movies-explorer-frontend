@@ -12,7 +12,7 @@ function Footer(props) {
         <p className='footer__description'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
         <div className='footer__wrapper'>
           <p className='footer__copyright'>© {new Date().getFullYear()}</p>
-          <nav>
+          <nav className='footer__nav'>
             <ul className='footer__links'>
               {links.map((link, i) =>
                 <li>
