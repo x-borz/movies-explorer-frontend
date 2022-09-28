@@ -45,6 +45,20 @@
   opacity: .7;
 }
 
-.search-form__input-with-btn {
+.search-form__input-with-btn-group {
   position: relative;
+}
+
+.search-form__checkbox-group {
+  display: flex;
+  margin: 32px 0 47px 0;
+}
+
+.search-form__checkbox-label {
+  margin-left: 14px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+  color: #fff;
 }
