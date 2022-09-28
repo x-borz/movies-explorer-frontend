@@ -5,15 +5,31 @@
   align-items: center;
 }
 
+@media screen and (max-width: 900px) {
+  .movies-card-list {
+    padding: 82px 30px 0 30px;
+  }
+}
+
 .movies-card-list__container {
   margin: 0 0 30px 0;
   padding: 0;
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, 364px);
   justify-items: center;
   column-gap: 24px;
   row-gap: 30px;
+  width: 100%;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 900px) {
+  .movies-card-list__container {
+    grid-template-columns: repeat(auto-fit, 339px);
+    column-gap: 30px;
+    row-gap: 36px;
+  }
 }
 
 .movies-card-list__container_type_saved-movies {

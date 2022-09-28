@@ -2,6 +2,12 @@
   padding: 70px 70px 0 70px;
 }
 
+@media screen and (max-width: 900px) {
+  .search-form {
+    padding: 80px 30px 0 30px;
+  }
+}
+
 .search-form__input {
   width: 100%;
   border: none;
@@ -54,6 +60,13 @@
   margin: 32px 0 47px 0;
 }
 
+@media screen and (max-width: 900px) {
+  .search-form__checkbox-group {
+    margin-top: 29px;
+    flex-direction: row-reverse;
+  }
+}
+
 .search-form__checkbox-label {
   margin-left: 14px;
   font-style: normal;
@@ -61,4 +74,10 @@
   font-size: 13px;
   line-height: 1.38;
   color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .search-form__checkbox-label {
+    margin-right: 16px;
+  }
 }

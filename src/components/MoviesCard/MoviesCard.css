@@ -12,6 +12,15 @@
   transition: box-shadow .5s linear;
 }
 
+@media screen and (max-width: 900px) {
+  .movies-card {
+    width: 339px;
+    height: 258px;
+    grid-template-columns: 281px auto;
+    grid-template-rows: 41px auto 190px;
+  }
+}
+
 .movies-card:hover {
   box-shadow: 0 4px 30px rgb(162, 147, 147);
 }
@@ -44,6 +53,15 @@
 .movies-card__img {
   grid-area: img;
   object-fit: cover;
+  width: 364px;
+  height: 203px;
+}
+
+@media screen and (max-width: 900px) {
+  .movies-card__img {
+    width: 339px;
+    height: 190px;
+  }
 }
 
 .movies-card__button {
