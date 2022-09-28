@@ -21,6 +21,15 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .movies-card {
+    width: 300px;
+    height: 236px;
+    grid-template-columns: 242px auto;
+    grid-template-rows: 41px auto 168px;
+  }
+}
+
 .movies-card:hover {
   box-shadow: 0 4px 30px rgb(162, 147, 147);
 }
@@ -61,6 +70,13 @@
   .movies-card__img {
     width: 339px;
     height: 190px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movies-card__img {
+    width: 300px;
+    height: 168px;
   }
 }
 
