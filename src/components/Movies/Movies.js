@@ -10,7 +10,13 @@ function Movies(props) {
     {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage, isLiked: false},
     {name: '34 слова о дизайне', duration: '1ч 47м', img: img2, isSavedMoviesPage, isLiked: true},
     {name: '35 слов о дизайне', duration: '1ч 47м', img: img3, isSavedMoviesPage, isLiked: false},
-    {name: '36 слов о дизайне', duration: '1ч 47м', img: img4, isSavedMoviesPage, isLiked: true}
+    {name: '36 слов о дизайне', duration: '1ч 47м', img: img4, isSavedMoviesPage, isLiked: true},
+    {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage, isLiked: false},
+    {name: '34 слова о дизайне', duration: '1ч 47м', img: img2, isSavedMoviesPage, isLiked: true},
+    {name: '35 слов о дизайне', duration: '1ч 47м', img: img3, isSavedMoviesPage, isLiked: false},
+    {name: '36 слов о дизайне', duration: '1ч 47м', img: img4, isSavedMoviesPage, isLiked: true},
+    {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage, isLiked: false},
+    {name: '34 слова о дизайне', duration: '1ч 47м', img: img2, isSavedMoviesPage, isLiked: true}
   ];
 
   return (

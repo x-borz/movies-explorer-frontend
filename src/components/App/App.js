@@ -9,7 +9,7 @@ function App() {
     <div className="page">
       {/*<Main/>*/}
       <Movies/>
-      <SavedMovies/>
+      {/*<SavedMovies/>*/}
       <Footer/>
     </div>
   );
