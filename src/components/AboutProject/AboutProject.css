@@ -1,5 +1,5 @@
 .about-project {
-  background: #202020;
+  background-color: #202020;
 }
 
 .about-project__container {
@@ -154,7 +154,7 @@
 }
 
 .about-project__timing-cell_duration_four-weeks {
-  background: #303030;
+  background-color: #303030;
   font-weight: 400;
   color: #fff;
 }

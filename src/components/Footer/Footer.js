@@ -15,8 +15,8 @@ function Footer(props) {
           <nav className='footer__nav'>
             <ul className='footer__links'>
               {links.map((link, i) =>
-                <li>
-                  <a className='footer__link' target='_blank' rel='noreferrer'  href={link.url} key={i}>{link.name}</a>
+                <li key={i}>
+                  <a className='footer__link' target='_blank' rel='noreferrer' href={link.url}>{link.name}</a>
                 </li>
               )}
             </ul>
