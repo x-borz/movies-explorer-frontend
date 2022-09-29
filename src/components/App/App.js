@@ -16,8 +16,8 @@ function App() {
       {/*<SavedMovies/>*/}
       {/*<Footer/>*/}
       {/*<NotFound/>*/}
-      <Register/>
-      {/*<Login/>*/}
+      {/*<Register/>*/}
+      <Login/>
     </div>
   );
 }
