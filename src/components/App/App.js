@@ -4,6 +4,9 @@ import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFound from "../NotFound/NotFound";
+import Auth from "../Auth/Auth";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 function App() {
   return (
@@ -12,7 +15,9 @@ function App() {
       {/*<Movies/>*/}
       {/*<SavedMovies/>*/}
       {/*<Footer/>*/}
-      <NotFound/>
+      {/*<NotFound/>*/}
+      <Register/>
+      {/*<Login/>*/}
     </div>
   );
 }
