@@ -7,6 +7,7 @@ import NotFound from "../NotFound/NotFound";
 import Auth from "../Auth/Auth";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import Profile from "../Profile/Profile";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
       {/*<Footer/>*/}
       {/*<NotFound/>*/}
       {/*<Register/>*/}
-      <Login/>
+      {/*<Login/>*/}
+      <Profile/>
     </div>
   );
 }
