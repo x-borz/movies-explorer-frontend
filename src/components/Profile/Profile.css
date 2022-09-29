@@ -15,6 +15,12 @@
   color: #fff;
 }
 
+@media screen and (max-width: 900px) {
+  .profile__greeting {
+    margin-top: 236px;
+  }
+}
+
 .profile__attributes {
   margin: 106px 0 0 0;
   padding: 0;
@@ -22,6 +28,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__attributes {
+    margin-top: 80px;
+  }
 }
 
 .profile__attribute {
@@ -56,6 +68,12 @@
   line-height: 1.23;
   color: #fff;
   transition: opacity .3s linear;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__edit-btn {
+    margin-top: 192px;
+  }
 }
 
 .profile__edit-btn:hover {
