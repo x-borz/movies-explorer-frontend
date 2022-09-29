@@ -8,12 +8,16 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import {Route, Switch} from "react-router-dom";
+import Header from "../Header/Header";
 
 function App() {
   return (
     <div className="page">
+      <Route exact path="/(movies|saved-movies|profile|)">
+        <Header/>
+      </Route>
       <Switch>
-        <Route exact path="/signup">
+        <Route exact path="/signup" >
           <Register/>
         </Route>
         <Route exact path="/signin">

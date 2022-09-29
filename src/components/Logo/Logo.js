@@ -1,8 +1,9 @@
 import './Logo.css';
+import {Link} from "react-router-dom";
 
 function Logo({modifier}) {
   return (
-    <a className={`logo ${modifier ? modifier : ''}`} href="#"></a>
+    <Link className={`logo ${modifier ? modifier : ''}`} to="/"></Link>
   );
 }
 

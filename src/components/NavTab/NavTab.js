@@ -12,7 +12,7 @@ function NavTab(props) {
       <ul className='nav-tab__links'>
         {
           links.map((link, i) =>
-            <li className='nav-tab__link-wrapper'>
+            <li className='nav-tab__link-wrapper' key={i}>
               <a className='nav-tab__link' href={link.url}>{link.name}</a>
             </li>
         )}
