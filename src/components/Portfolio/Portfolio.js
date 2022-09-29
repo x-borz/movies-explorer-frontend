@@ -2,9 +2,10 @@ import './Portfolio.css';
 
 function Portfolio(props) {
   const links = [
-    {name: 'Статичный сайт', url: 'https://x-borz.github.io/russian-travel/'},
-    {name: 'Адаптивный сайт', url: 'https://x-borz.github.io/mesto/'},
-    {name: 'Одностраничное приложение', url: 'https://x-borz.github.io/react-mesto-auth/'},
+
+    {name: 'Статичный сайт', url: 'https://x-borz.github.io/how-to-learn/'},
+    {name: 'Адаптивный сайт', url: 'https://x-borz.github.io/russian-travel/'},
+    {name: 'Одностраничное приложение', url: 'https://x-borz.github.io/mesto/'},
   ];
 
   return (

@@ -1,4 +1,5 @@
 import './Profile.css';
+import {Link} from "react-router-dom";
 
 function Profile(props) {
   const name = 'Ренат';  //на следующем этапе буду брать из контекста
@@ -18,7 +19,7 @@ function Profile(props) {
         </li>
       </ul>
       <button className='profile__edit-btn' type='button'>Редактировать</button>
-      <a className='profile__link' href='#'>Выйти из аккаунта</a>
+      <Link className='profile__link' href='#'>Выйти из аккаунта</Link>
     </section>
   );
 }

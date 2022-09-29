@@ -3,7 +3,7 @@ import './Footer.css';
 function Footer(props) {
   const links = [
     {name: 'Яндекс.Практикум', url: 'https://practicum.yandex.ru/'},
-    {name: 'Github', url: 'https://github.com/x-borz/'}
+    {name: 'Github', url: 'https://github.com/'}
   ];
 
   return (
