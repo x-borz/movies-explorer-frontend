@@ -8,21 +8,23 @@
 
 .header__container {
   max-width: 1280px;
+  height: 74px;
   margin: 0 auto;
   display: flex;
-  padding: 18px 70px 18px 70px;
+  padding: 0 70px;
   box-sizing: border-box;
+  align-items: center;
 }
 
 @media screen and (max-width: 900px) {
   .header__container {
-    padding: 18px 30px 18px 30px;
+    padding: 0 30px;
   }
 }
 
 @media screen and (max-width: 600px) {
   .header__container {
-    padding: 18px 14px 18px 14px;
+    padding: 0 14px;
   }
 }
 
@@ -78,7 +80,6 @@
 
 .header__navigation {
   margin-left: 28px;
-  margin-top: 3px;
   flex-grow: 1;
 }
 
@@ -88,7 +89,7 @@
   background-image: url("../../images/menu-ico.svg");
   background-repeat: no-repeat;
   background-color: transparent;
-  background-size: cover;
+  background-size: contain;
   width: 44px;
   height: 44px;
   transition: opacity .3s linear;
@@ -107,7 +108,7 @@
 
 @media screen and (max-width: 600px) {
   .header__menu-button {
-    width: 44px;
-    height: 43px;
+    width: 40px;
+    height: 37px;
   }
 }

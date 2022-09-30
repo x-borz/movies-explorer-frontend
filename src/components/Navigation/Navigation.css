@@ -12,7 +12,7 @@
 }
 
 .navigation__link-element {
-  margin: 6px 0 0 16px;
+  margin: 4px 0 0 16px;
 }
 
 .navigation__link-element_type_account {
@@ -49,7 +49,7 @@
   position: absolute;
   display: block;
   content: 'Аккаунт';
-  top: 7px;
+  top: 5px;
   left: -70px;
   font-size: 14px;
   line-height: 1.14
