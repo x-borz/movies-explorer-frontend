@@ -1,9 +1,20 @@
 import './Profile.css';
 import {Link} from "react-router-dom";
+import Popup from "../Popup/Popup";
+import {useState} from "react";
 
 function Profile(props) {
   const name = 'Ренат';  //на следующем этапе буду брать из контекста
   const email = 'x-borz@yandex.ru';  //на следующем этапе буду брать из контекста
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
+
+  const closePopup = () => {
+    setIsPopupOpened(false);
+  }
+
+  const submit = () => {
+    alert('Сохранение');
+  }
 
   return (
     <section className='profile page__section'>
@@ -18,8 +29,9 @@ function Profile(props) {
           <p className='profile__attr'>{email}</p>
         </li>
       </ul>
-      <button className='profile__edit-btn' type='button'>Редактировать</button>
+      <button className='profile__edit-btn' type='button' onClick={() => setIsPopupOpened(true)}>Редактировать</button>
       <Link className='profile__link' to='/'>Выйти из аккаунта</Link>
+      <Popup isPopupOpened={isPopupOpened} onClose={closePopup} onSubmit={submit}/>
     </section>
   );
 }
