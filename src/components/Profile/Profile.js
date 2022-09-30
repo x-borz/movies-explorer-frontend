@@ -19,7 +19,7 @@ function Profile(props) {
         </li>
       </ul>
       <button className='profile__edit-btn' type='button'>Редактировать</button>
-      <Link className='profile__link' href='#'>Выйти из аккаунта</Link>
+      <Link className='profile__link' to='/'>Выйти из аккаунта</Link>
     </section>
   );
 }

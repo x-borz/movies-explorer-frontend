@@ -3,7 +3,7 @@ import Logo from "../Logo/Logo";
 import {Link, Route, useRouteMatch} from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 
-function Header(props) {
+function Header({setIsMenuVisible}) {
   const match = useRouteMatch();
 
   return (
@@ -21,8 +21,8 @@ function Header(props) {
           </ul>
         </Route>
         <Route exact path="/(movies|saved-movies|profile)">
-          <Navigation modifier={'header__navigation'}/>
-          <button className='header__menu-button' type='button'></button>
+          <Navigation modifier='header' setIsMenuVisible={setIsMenuVisible}/>
+          <button className='header__menu-button' type='button' onClick={() => setIsMenuVisible(true)}></button>
         </Route>
       </div>
     </header>

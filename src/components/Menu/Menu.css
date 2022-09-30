@@ -1,0 +1,46 @@
+.menu {
+  background-color: rgba(0, 0, 0, .3);
+  display: none;
+  justify-content: flex-end;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.menu_visible {
+  display: flex;
+  position: fixed;
+}
+
+.menu__panel {
+  background-color: #202020;
+  position: relative;
+  width: 520px;
+}
+
+@media screen and (max-width: 600px) {
+  .menu__panel {
+    width: 100vw;
+  }
+}
+
+.menu__close-btn {
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  background-image: url("../../images/close-ico.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  top: 22px;
+  right: 22px;
+}
+
+@media screen and (max-width: 600px) {
+  .menu__close-btn {
+    top: 13px;
+    right: 13px;
+  }
+}

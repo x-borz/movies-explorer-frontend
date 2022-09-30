@@ -9,12 +9,16 @@ import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import {Route, Switch} from "react-router-dom";
 import Header from "../Header/Header";
+import {useState} from "react";
+import Menu from "../Menu/Menu";
 
 function App() {
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
   return (
     <div className="page">
       <Route exact path="/(movies|saved-movies|profile|)">
-        <Header/>
+        <Header setIsMenuVisible={setIsMenuVisible}/>
       </Route>
       <Switch>
         <Route exact path="/signup" >
@@ -42,6 +46,7 @@ function App() {
       <Route exact path="/(movies|saved-movies|)">
         <Footer/>
       </Route>
+      <Menu isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible}/>
     </div>
   );
 }

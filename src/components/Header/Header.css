@@ -78,11 +78,6 @@
   opacity: .7;
 }
 
-.header__navigation {
-  margin-left: 28px;
-  flex-grow: 1;
-}
-
 .header__menu-button {
   margin-left: auto;
   border: none;
