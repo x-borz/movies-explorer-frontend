@@ -1,7 +1,7 @@
 import './Profile.css';
 import {Link} from "react-router-dom";
 import Popup from "../Popup/Popup";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function Profile(props) {
   const name = 'Ренат';  //на следующем этапе буду брать из контекста
@@ -15,6 +15,17 @@ function Profile(props) {
   const submit = () => {
     alert('Сохранение');
   }
+
+  useEffect(() => {
+    const handleEscClose = evt => {
+      if (evt.key === 'Escape') closePopup();
+    }
+    if (isPopupOpened) {
+      document.addEventListener("keydown", handleEscClose);
+      return () => document.removeEventListener("keydown", handleEscClose);
+    }
+  }, [isPopupOpened]);
+
 
   return (
     <section className='profile page__section'>

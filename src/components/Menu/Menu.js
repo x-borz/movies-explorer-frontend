@@ -1,12 +1,12 @@
 import './Menu.css';
 import Navigation from "../Navigation/Navigation";
 
-function Menu({isMenuVisible, setIsMenuVisible}) {
+function Menu({isMenuVisible, onMenuClose}) {
   return (
     <section className={`menu ${isMenuVisible ? 'menu_visible' : ''}`}>
       <div className='menu__panel'>
-        <Navigation modifier='menu' setIsMenuVisible={setIsMenuVisible}/>
-        <button className='menu__close-btn' type='button' onClick={() => setIsMenuVisible(false)}/>
+        <Navigation modifier='menu' onMenuClose={onMenuClose}/>
+        <button className='menu__close-btn' type='button' onClick={onMenuClose}/>
       </div>
     </section>
   );

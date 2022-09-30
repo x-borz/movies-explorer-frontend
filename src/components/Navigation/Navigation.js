@@ -1,7 +1,7 @@
 import './Navigation.css';
 import {Link} from "react-router-dom";
 
-function Navigation({modifier, setIsMenuVisible}) {
+function Navigation({modifier, onMenuClose}) {
   const links = [
     {
       name: 'Главная',
@@ -31,7 +31,7 @@ function Navigation({modifier, setIsMenuVisible}) {
         {
           links.map((link, i) =>
             <li className={`navigation__link-element ${link.elementModifier ? link.elementModifier : ''} ${link.isHidden ? 'navigation__link-element_hidden' : ''}`} key={i}>
-              <Link className={`navigation__link ${link.linkModifier ? link.linkModifier : ''} ${link.hasUnderline ? 'navigation__link_underlined' : ''}`} to={link.url} onClick={() => setIsMenuVisible(false)}>
+              <Link className={`navigation__link ${link.linkModifier ? link.linkModifier : ''} ${link.hasUnderline ? 'navigation__link_underlined' : ''}`} to={link.url} onClick={onMenuClose}>
                 {link.name}
               </Link>
             </li>

@@ -15,10 +15,18 @@ import Menu from "../Menu/Menu";
 function App() {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
+  const openMenu = () => {
+    setIsMenuVisible(true);
+  }
+
+  const closeMenu = () => {
+    setIsMenuVisible(false);
+  }
+
   return (
     <div className="page">
       <Route exact path="/(movies|saved-movies|profile|)">
-        <Header setIsMenuVisible={setIsMenuVisible}/>
+        <Header onMenuOpen={openMenu} onMenuClose={closeMenu}/>
       </Route>
       <Switch>
         <Route exact path="/signup" >
@@ -46,7 +54,7 @@ function App() {
       <Route exact path="/(movies|saved-movies|)">
         <Footer/>
       </Route>
-      <Menu isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible}/>
+      <Menu isMenuVisible={isMenuVisible} onMenuClose={closeMenu}/>
     </div>
   );
 }
