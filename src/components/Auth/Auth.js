@@ -21,7 +21,7 @@ function Auth({isRegister}) {
 
   return (
     <section className='auth page__section'>
-      <Logo modifier={'auth__logo'}/>
+      <Logo modifier={'auth'}/>
       <h1 className='auth__title'>{params.title}</h1>
       <form className='auth__form'>
         {

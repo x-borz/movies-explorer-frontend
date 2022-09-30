@@ -10,3 +10,19 @@
 .logo:hover {
   opacity: .7;
 }
+
+.logo_place_auth {
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 900px) {
+  .logo_place_auth {
+    margin-top: 232px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .logo_place_auth {
+    margin-top: 56px;
+  }
+}

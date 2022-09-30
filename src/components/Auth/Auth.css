@@ -11,22 +11,6 @@
   }
 }
 
-.auth__logo {
-  margin-top: 70px;
-}
-
-@media screen and (max-width: 900px) {
-  .auth__logo {
-    margin-top: 232px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .auth__logo {
-    margin-top: 56px;
-  }
-}
-
 .auth__title {
   margin: 40px 0 0 0;
   padding: 0;
