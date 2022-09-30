@@ -1,0 +1,53 @@
+.navigation {
+}
+
+.navigation__links {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+.navigation__link-element {
+  margin: 6px 0 0 16px;
+}
+
+.navigation__link-element_type_account {
+  margin: 0 0 0 auto;
+}
+
+.navigation__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.38;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity .3s linear;
+}
+
+.navigation__link:hover {
+  opacity: .7;
+}
+
+.navigation__link_type_account {
+  position: relative;
+  display: block;
+  background-color: #313131;
+  border-radius: 6px;
+  background-image: url('../../images/account-ico.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 30px;
+  height: 30px;
+}
+
+.navigation__link_type_account:before {
+  position: absolute;
+  display: block;
+  content: 'Аккаунт';
+  top: 7px;
+  left: -70px;
+  font-size: 14px;
+  line-height: 1.14
+}

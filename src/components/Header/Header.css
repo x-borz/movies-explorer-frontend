@@ -76,3 +76,8 @@
   opacity: .7;
 }
 
+.header__navigation {
+  margin-left: 28px;
+  margin-top: 3px;
+  flex-grow: 1;
+}
