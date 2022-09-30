@@ -11,12 +11,14 @@ import {Route, Switch} from "react-router-dom";
 import Header from "../Header/Header";
 import {useState} from "react";
 import Menu from "../Menu/Menu";
+import Preloader from "../Preloader/Preloader";
 
 function App() {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   return (
     <div className="page">
+      <Preloader/>
       <Route exact path="/(movies|saved-movies|profile|)">
         <Header setIsMenuVisible={setIsMenuVisible}/>
       </Route>
