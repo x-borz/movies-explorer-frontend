@@ -2,7 +2,7 @@ import './NavTab.css';
 
 function NavTab(props) {
   const links = [
-    {name: 'О проекте', url: '#about_project'},
+    {name: 'О проекте', url: '#about-project'},
     {name: 'Технологии', url: '#techs'},
     {name: 'Студент', url: '#about-me'}
   ];
