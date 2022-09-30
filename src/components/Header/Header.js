@@ -22,6 +22,7 @@ function Header(props) {
         </Route>
         <Route exact path="/(movies|saved-movies|profile)">
           <Navigation modifier={'header__navigation'}/>
+          <button className='header__menu-button' type='button'></button>
         </Route>
       </div>
     </header>

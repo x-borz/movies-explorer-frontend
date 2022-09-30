@@ -81,3 +81,33 @@
   margin-top: 3px;
   flex-grow: 1;
 }
+
+.header__menu-button {
+  margin-left: auto;
+  border: none;
+  background-image: url("../../images/menu-ico.svg");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: cover;
+  width: 44px;
+  height: 44px;
+  transition: opacity .3s linear;
+}
+
+.header__menu-button:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 901px) {
+  .header__menu-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header__menu-button {
+    width: 44px;
+    height: 43px;
+  }
+}

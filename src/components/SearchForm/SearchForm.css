@@ -116,7 +116,7 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 600px) {
   .search-form__checkbox-label {
     margin-left: 0;
     margin-right: 13px;
