@@ -1,0 +1,110 @@
+.movies-card {
+  width: 364px;
+  height: 271px;
+  background-color: #222;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, .08);
+  display: grid;
+  grid-template-areas: "title button"
+                       "duration button"
+                       "img img";
+  grid-template-columns: 306px auto;
+  grid-template-rows: 41px auto 203px;
+  transition: box-shadow .5s linear;
+}
+
+@media screen and (max-width: 900px) {
+  .movies-card {
+    width: 339px;
+    height: 258px;
+    grid-template-columns: 281px auto;
+    grid-template-rows: 41px auto 190px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movies-card {
+    width: 300px;
+    height: 236px;
+    grid-template-columns: 242px auto;
+    grid-template-rows: 41px auto 168px;
+  }
+}
+
+.movies-card:hover {
+  box-shadow: 0 4px 30px rgb(162, 147, 147);
+}
+
+.movies-card__title {
+  grid-area: title;
+  margin: 13px 0 0 14px;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.2;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.movies-card__duration {
+  grid-area: duration;
+  margin: 0 0 0 14px;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.18;
+  color: #8b8b8b;
+}
+
+.movies-card__img {
+  grid-area: img;
+  object-fit: cover;
+  width: 364px;
+  height: 203px;
+}
+
+@media screen and (max-width: 900px) {
+  .movies-card__img {
+    width: 339px;
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movies-card__img {
+    width: 300px;
+    height: 168px;
+  }
+}
+
+.movies-card__button {
+  grid-area: button;
+  margin: 19px 0 0 14px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: opacity .3s linear;
+}
+
+.movies-card__button:hover {
+  opacity: .7;
+}
+
+.movies-card__button_type_drop {
+  background-image: url('../../images/drop-movie-ico.svg');
+}
+
+.movies-card__button_type_active-save {
+  background-image: url('../../images/save-movie-active-ico.svg');
+}
+
+.movies-card__button_type_inactive-save {
+  background-image: url('../../images/save-movie-ico.svg');
+}

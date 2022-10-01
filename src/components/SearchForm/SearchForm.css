@@ -1,0 +1,134 @@
+.search-form {
+  padding: 70px 70px 0 70px;
+}
+
+@media screen and (max-width: 900px) {
+  .search-form {
+    padding: 80px 30px 0 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-form {
+    padding: 90px 14px 0 14px;
+  }
+}
+
+.search-form__input {
+  width: 100%;
+  border: none;
+  border-bottom: #424242 1px solid;
+  background-color: transparent;
+  padding: 0 80px 13px 0;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #fff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search-form__input:focus {
+  border-bottom-color: #4285f4;
+}
+
+@media screen and (max-width: 600px) {
+  .search-form__input {
+    font-size: 18px;
+    padding: 0 80px 15px 0;
+  }
+}
+
+.search-form__input::placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #8b8b8b;
+}
+
+@media screen and (max-width: 600px) {
+  .search-form__input::placeholder {
+    font-size: 18px;
+  }
+}
+
+.search-form__search-btn {
+  width: 59px;
+  height: 34px;
+  background: #4285f4;
+  border-radius: 48px;
+  border: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.64;
+  color: #fff;
+  transition: opacity .3s linear, box-shadow .1s linear;
+  position: absolute;
+  right: 0;
+  bottom: 13px;
+}
+
+.search-form__search-btn:focus {
+  box-shadow: 0 0 10px 5px #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .search-form__search-btn {
+    bottom: 11px;
+  }
+}
+
+.search-form__search-btn:hover {
+  opacity: .7;
+}
+
+.search-form__input-with-btn-group {
+  position: relative;
+}
+
+.search-form__checkbox-group {
+  display: flex;
+  margin: 32px 0 47px 0;
+}
+
+@media screen and (max-width: 900px) {
+  .search-form__checkbox-group {
+    margin-top: 29px;
+    flex-direction: row-reverse;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-form__checkbox-group {
+    margin-top: 40px;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.search-form__checkbox-label {
+  margin-left: 14px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+  color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .search-form__checkbox-label {
+    margin-right: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-form__checkbox-label {
+    margin-left: 0;
+    margin-right: 13px;
+    font-size: 11px;
+    line-height: 1.64;
+  }
+}

@@ -1,0 +1,127 @@
+.footer {
+  background-color: #202020;
+}
+
+.footer__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__description {
+  margin: 79px 70px 0 70px;
+  padding: 0 0 20px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  text-align: center;
+  color: #8b8b8b;
+  border-bottom: #424242 1px solid;
+}
+
+@media screen and (max-width: 900px) {
+  .footer__description {
+    margin: 79px 30px 0 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .footer__description {
+    margin: 79px 10px 0 10px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
+
+.footer__wrapper {
+  margin: 18px 70px 20px 70px;
+  display: grid;
+  grid-template-areas: "copyright nav";
+  grid-template-columns: 1fr auto;
+}
+
+@media screen and (max-width: 900px) {
+  .footer__wrapper {
+    margin: 18px 30px 20px 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .footer__wrapper {
+    grid-template-areas: "nav"
+                         "copyright";
+    grid-template-columns: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .footer__wrapper {
+    justify-content: center;
+  }
+}
+
+.footer__copyright {
+  grid-area: copyright;
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__copyright {
+    text-align: center;
+    margin-top: 30px;
+    color: #8b8b8b;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
+
+.footer__nav {
+  grid-area: nav;
+}
+
+.footer__links {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.footer__link {
+  display: block;
+  margin-left: 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity .3s linear;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__link {
+    margin-left: 0;
+    margin-top: 12px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
+
+.footer__link:hover {
+  opacity: .7;
+}

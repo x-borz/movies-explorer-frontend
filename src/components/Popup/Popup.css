@@ -1,0 +1,124 @@
+.popup {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility .3s, opacity .3s linear;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+  padding: 34px 36px;
+  box-sizing: border-box;
+  max-width: 430px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.popup__close-button {
+  position: absolute;
+  top: -36px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-image: url("../../images/close-ico.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  transition: opacity .3s linear;
+}
+
+.popup__close-button:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.popup__heading {
+  margin: 0 0 50px 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.21;
+  color: #000;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__heading {
+    font-size: 18px;
+  }
+}
+
+.popup__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup__submit-button {
+  margin-top: 12px;
+  height: 50px;
+  border-radius: 2px;
+  background-color: #000;
+  border: none;
+  transition: opacity .25s linear;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #fff;
+}
+
+.popup__submit-button:hover {
+  opacity: .8;
+  cursor: pointer;
+}
+
+.popup__input {
+  border: 0;
+  outline: none;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  height: 12px;
+  background-color: transparent;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #000;
+}
+
+.popup__input::placeholder {
+  color: #c4c4c4;
+}
+
+.popup__error {
+  margin-top: 5px;
+  height: 30px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #ff0000;
+  opacity: 0;
+  transition: opacity .1s linear;
+  overflow: hidden;
+}

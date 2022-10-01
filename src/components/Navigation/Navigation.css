@@ -1,0 +1,130 @@
+.navigation_place_header {
+  margin-left: 28px;
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 900px) {
+  .navigation_place_header {
+    display: none;
+  }
+}
+
+.navigation_place_menu {
+  margin-top: 131px;
+}
+
+@media screen and (max-width: 600px) {
+  .navigation_place_menu {
+    margin-top: 119px;
+  }
+}
+
+.navigation__links {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+@media screen and (max-width: 900px) {
+  .navigation__links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.navigation__link-element {
+  margin: 4px 0 0 16px;
+}
+
+@media screen and (max-width: 900px) {
+  .navigation__link-element {
+    margin: 28px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navigation__link-element {
+    margin-top: 25px;
+  }
+}
+
+.navigation__link-element_hidden {
+  display: none;
+}
+
+.navigation__link-element_type_account {
+  margin: 0 0 0 auto;
+}
+
+@media screen and (max-width: 900px) {
+  .navigation__link-element_type_account {
+    margin: 622px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navigation__link-element_type_account {
+    margin: 444px 0 0 0;
+  }
+}
+
+.navigation__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.38;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity .3s linear;
+}
+
+@media screen and (max-width: 900px) {
+  .navigation__link {
+    font-size: 18px;
+    line-height: 1.22;
+  }
+}
+
+.navigation__link:hover {
+  opacity: .7;
+}
+
+.navigation__link_active {
+  padding-bottom: 4px;
+  border-bottom: #fff solid 2px;
+}
+
+@media screen and (max-width: 600px) {
+  .navigation__link_active {
+    padding-bottom: 7px;
+  }
+}
+
+.navigation__link_type_account {
+  position: relative;
+  display: block;
+  background-color: #313131;
+  border-radius: 6px;
+  background-image: url('../../images/account-ico.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 30px;
+  height: 30px;
+}
+
+.navigation__link_type_account:before {
+  position: absolute;
+  display: block;
+  content: 'Аккаунт';
+  top: 5px;
+  left: -70px;
+  font-size: 14px;
+  line-height: 1.14
+}
+
+@media screen and (max-width: 900px) {
+  .navigation__link_type_account {
+    margin-left: 70px;
+  }
+}
