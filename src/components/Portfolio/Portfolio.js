@@ -14,11 +14,14 @@ function Portfolio(props) {
         <h2 className='portfolio__title'>Портфолио</h2>
         <nav className='portfolio__nav'>
           <ul className='portfolio__links'>
-            {links.map((link, i) =>
-              <li key={i} className='portfolio__link-row'>
-                <p className='portfolio__link-title'>{link.name}</p>
-                <a className='portfolio__link' rel='noreferrer' href={link.url} target='_blank'>↗</a>
-              </li>
+            {
+              links.map((link, i) =>
+                <li key={i} className='portfolio__link-row'>
+                  <a className='portfolio__link' rel='noreferrer' href={link.url} target='_blank'>
+                    <p className='portfolio__link-title'>{link.name}</p>
+                    <span className='portfolio__link-marker'>↗</span>
+                  </a>
+                </li>
             )}
           </ul>
         </nav>
