@@ -28,6 +28,10 @@
   box-sizing: border-box;
 }
 
+.search-form__input:focus {
+  border-bottom-color: #4285f4;
+}
+
 @media screen and (max-width: 600px) {
   .search-form__input {
     font-size: 18px;
@@ -60,10 +64,14 @@
   font-size: 11px;
   line-height: 1.64;
   color: #fff;
-  transition: opacity .3s linear;
+  transition: opacity .3s linear, box-shadow .1s linear;
   position: absolute;
   right: 0;
   bottom: 13px;
+}
+
+.search-form__search-btn:focus {
+  box-shadow: 0 0 10px 5px #fff;
 }
 
 @media screen and (max-width: 600px) {

@@ -5,7 +5,7 @@ function SearchForm(props) {
   return (
     <form className='search-form'>
       <div className='search-form__input-with-btn-group'>
-        <input className='search-form__input' type='text' placeholder='Фильм'/>
+        <input className='search-form__input' type='text' placeholder='Фильм' required/>
         <button className='search-form__search-btn' type='submit'>Найти</button>
       </div>
       <div className='search-form__checkbox-group'>
