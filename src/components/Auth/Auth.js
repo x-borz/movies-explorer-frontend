@@ -28,16 +28,16 @@ function Auth({isRegister}) {
           isRegister &&
           <>
             <label className='auth__label'>Имя</label>
-            <input className='auth__input' type='text'/>
+            <input className='auth__input' type='text' required minLength='2' maxLength='30'/>
             <span className='auth__error'></span>
           </>
         }
         <label className='auth__label'>E-mail</label>
-        <input className='auth__input' type='text'/>
+        <input className='auth__input' type='text' required/>
         <span className='auth__error'></span>
 
         <label className='auth__label'>Пароль</label>
-        <input className='auth__input' type='password'/>
+        <input className='auth__input' type='password' required/>
         <span className='auth__error'></span>
 
         <button className={`auth__submit_btn ${!isRegister ? 'auth__submit_btn_place_login' : ''}`} type='submit'>{params.buttonName}</button>

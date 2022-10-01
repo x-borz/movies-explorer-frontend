@@ -156,6 +156,7 @@
   line-height: 1.21;
   color: #4285f4;
   text-decoration: none;
+  transition: opacity .3s linear;
 }
 
 @media screen and (max-width: 600px) {
@@ -164,4 +165,8 @@
     font-size: 12px;
     line-height: 1.25;
   }
+}
+
+.auth__link:hover {
+  opacity: .7;
 }
