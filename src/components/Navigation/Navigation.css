@@ -90,13 +90,13 @@
   opacity: .7;
 }
 
-.navigation__link_underlined {
+.navigation__link_active {
   padding-bottom: 4px;
   border-bottom: #fff solid 2px;
 }
 
 @media screen and (max-width: 600px) {
-  .navigation__link_underlined {
+  .navigation__link_active {
     padding-bottom: 7px;
   }
 }

@@ -1,28 +1,31 @@
 import './Navigation.css';
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 function Navigation({modifier, onMenuClose}) {
   const links = [
     {
       name: 'Главная',
       url: '/',
-      isHidden: modifier === 'header'
+      isHidden: modifier === 'header',
+      hasActiveState: modifier === 'menu'
     },
     {
       name: 'Фильмы',
       url: '/movies',
-      hasUnderline: modifier === 'menu'
+      hasActiveState: modifier === 'menu'
     },
     {
       name: 'Сохранённые фильмы',
-      url: '/saved-movies'
+      url: '/saved-movies',
+      hasActiveState: modifier === 'menu'
     },
     {
       name: '',
       url: '/profile',
       elementModifier: 'navigation__link-element_type_account',
-      linkModifier: 'navigation__link_type_account'
-    },
+      linkModifier: 'navigation__link_type_account',
+      hasActiveState: false
+    }
   ];
 
   return (
@@ -31,9 +34,9 @@ function Navigation({modifier, onMenuClose}) {
         {
           links.map((link, i) =>
             <li className={`navigation__link-element ${link.elementModifier ? link.elementModifier : ''} ${link.isHidden ? 'navigation__link-element_hidden' : ''}`} key={i}>
-              <Link className={`navigation__link ${link.linkModifier ? link.linkModifier : ''} ${link.hasUnderline ? 'navigation__link_underlined' : ''}`} to={link.url} onClick={onMenuClose}>
+              <NavLink className={`navigation__link ${link.linkModifier ? link.linkModifier : ''}`} activeClassName={link.hasActiveState ? `navigation__link_active` : ''} to={link.url} exact onClick={onMenuClose}>
                 {link.name}
-              </Link>
+              </NavLink>
             </li>
         )}
       </ul>
