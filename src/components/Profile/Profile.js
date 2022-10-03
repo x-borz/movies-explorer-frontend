@@ -5,13 +5,13 @@ import {handleNameInput} from "../../utils/utils";
 import {useContext, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Profile({onSignOut}) {
+function Profile({onSignOut, onUserUpdate}) {
   const {name, email} = useContext(CurrentUserContext);
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
   const handleProfileEdition = evt => {
     evt.preventDefault();
-    console.log(values);
+    onUserUpdate(values);
   }
 
   useEffect(() => {

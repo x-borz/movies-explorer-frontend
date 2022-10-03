@@ -54,6 +54,10 @@ function App() {
     }
   }
 
+  const handleUserUpdate = ({name, email}) => {
+    console.log(name, email);
+  }
+
   const handleSignOut = () => {
     localStorage.removeItem('token');
     history.push('/sign-in');
@@ -87,7 +91,7 @@ function App() {
             <Login onLogin={handleLogin}/>
           </Route>
           <Route exact path="/profile">
-            <Profile onSignOut={handleSignOut}/>
+            <Profile onSignOut={handleSignOut} onUserUpdate={handleUserUpdate}/>
           </Route>
           <Route exact path="/movies">
             <Movies/>
