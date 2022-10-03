@@ -12,11 +12,13 @@ import Header from "../Header/Header";
 import {useEffect, useState} from "react";
 import Menu from "../Menu/Menu";
 import auth from "../../utils/auth";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function App() {
   const history = useHistory();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
   const openMenu = () => {
     setIsMenuVisible(true);
@@ -61,7 +63,8 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        await auth.checkToken(localStorage.getItem('token'))
+        const user = await auth.checkToken(localStorage.getItem('token'));
+        setCurrentUser(user);
         login();
       } catch (err) {
         // если токен не найден, просрочен, все, что угодно - ничего не делаем - пусть пользователь логинится заново
@@ -71,38 +74,40 @@ function App() {
   }, []);
 
   return (
-    <div className="page">
-      <Route exact path="/(movies|saved-movies|profile|)">
-        <Header isLoggedIn={isLoggedIn} onMenuOpen={openMenu} onMenuClose={closeMenu}/>
-      </Route>
-      <Switch>
-        <Route exact path="/signup" >
-          <Register onRegister={handleRegister} />
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Route exact path="/(movies|saved-movies|profile|)">
+          <Header isLoggedIn={isLoggedIn} onMenuOpen={openMenu} onMenuClose={closeMenu}/>
         </Route>
-        <Route exact path="/signin">
-          <Login onLogin={handleLogin}/>
+        <Switch>
+          <Route exact path="/signup" >
+            <Register onRegister={handleRegister} />
+          </Route>
+          <Route exact path="/signin">
+            <Login onLogin={handleLogin}/>
+          </Route>
+          <Route exact path="/profile">
+            <Profile onSignOut={handleSignOut}/>
+          </Route>
+          <Route exact path="/movies">
+            <Movies/>
+          </Route>
+          <Route exact path="/saved-movies">
+            <SavedMovies/>
+          </Route>
+          <Route exact path="/">
+            <Main/>
+          </Route>
+          <Route path="*">
+            <NotFound/>
+          </Route>
+        </Switch>
+        <Route exact path="/(movies|saved-movies|)">
+          <Footer/>
         </Route>
-        <Route exact path="/profile">
-          <Profile onSignOut={handleSignOut}/>
-        </Route>
-        <Route exact path="/movies">
-          <Movies/>
-        </Route>
-        <Route exact path="/saved-movies">
-          <SavedMovies/>
-        </Route>
-        <Route exact path="/">
-          <Main/>
-        </Route>
-        <Route path="*">
-          <NotFound/>
-        </Route>
-      </Switch>
-      <Route exact path="/(movies|saved-movies|)">
-        <Footer/>
-      </Route>
-      <Menu isMenuVisible={isMenuVisible} onMenuClose={closeMenu}/>
-    </div>
+        <Menu isMenuVisible={isMenuVisible} onMenuClose={closeMenu}/>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

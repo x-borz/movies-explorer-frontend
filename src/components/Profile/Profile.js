@@ -2,12 +2,11 @@ import './Profile.css';
 import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../../utils/forms";
 import {handleNameInput} from "../../utils/utils";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Profile({onSignOut}) {
-  const name = 'Виталий';  //на следующем этапе буду брать из контекста
-  const email = 'x-borz@yandex.ru';  //на следующем этапе буду брать из контекста
-
+  const {name, email} = useContext(CurrentUserContext);
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
   const handleProfileEdition = evt => {
@@ -27,12 +26,12 @@ function Profile({onSignOut}) {
       <form className='profile__form' onSubmit={handleProfileEdition}>
         <div className='input-group'>
           <label className='profile__label' htmlFor='name'>Имя</label>
-          <input className={`profile__input ${errors.name ? 'profile__input_errored' : ''}`} id='name' name='name' type='text' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' defaultValue={values.name} onChange={handleChange} onInput={handleNameInput}/>
+          <input className={`profile__input ${errors.name ? 'profile__input_errored' : ''}`} id='name' name='name' type='text' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' defaultValue={name} onChange={handleChange} onInput={handleNameInput}/>
           <span className='profile__error'>{errors.name || ''}</span>
         </div>
         <div className='input-group'>
           <label className='profile__label' htmlFor='email'>E-mail</label>
-          <input className={`profile__input profile__input_unbordered ${errors.email ? 'profile__input_errored' : ''}`} id='email' name='email' type='email' required defaultValue={values.email} onChange={handleChange}/>
+          <input className={`profile__input profile__input_unbordered ${errors.email ? 'profile__input_errored' : ''}`} id='email' name='email' type='email' required defaultValue={email} onChange={handleChange}/>
           <span className='profile__error'>{errors.email || ''}</span>
         </div>
         <button className={`profile__edit-btn ${!isFormValid ? 'profile__edit-btn_disabled' : ''}`} type='submit' disabled={!isValid}>Редактировать</button>
