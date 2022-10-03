@@ -52,6 +52,12 @@ function App() {
     }
   }
 
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    history.push('/sign-in');
+    setIsLoggedIn(false);
+  }
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -77,7 +83,7 @@ function App() {
           <Login onLogin={handleLogin}/>
         </Route>
         <Route exact path="/profile">
-          <Profile/>
+          <Profile onSignOut={handleSignOut}/>
         </Route>
         <Route exact path="/movies">
           <Movies/>

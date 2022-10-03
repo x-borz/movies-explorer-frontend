@@ -2,6 +2,7 @@ import './Auth.css';
 import Logo from "../Logo/Logo";
 import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../../utils/forms";
+import {handleNameInput} from "../../utils/utils";
 
 function Auth({isRegister, onSubmit}) {
   const params = isRegister ?
@@ -21,15 +22,6 @@ function Auth({isRegister, onSubmit}) {
     }
 
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
-
-  const handleNameInput = evt => {
-    const target = evt.target;
-    if (target.validity.patternMismatch) {
-      target.setCustomValidity('Разрешены лишь русские/латинские буквы, пробел или дефис');
-    } else {
-      target.setCustomValidity('');
-    }
-  }
 
   const submit = evt => {
     evt.preventDefault();
