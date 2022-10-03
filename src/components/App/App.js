@@ -7,13 +7,16 @@ import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, useHistory} from "react-router-dom";
 import Header from "../Header/Header";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Menu from "../Menu/Menu";
+import auth from "../../utils/auth";
 
 function App() {
+  const history = useHistory();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const openMenu = () => {
     setIsMenuVisible(true);
@@ -23,17 +26,55 @@ function App() {
     setIsMenuVisible(false);
   }
 
+  const login = () => {
+    setIsLoggedIn(true);
+    history.push("/movies");
+  }
+
+  const handleRegister = async ({name, email, password}) => {
+    try {
+      await auth.register(name, email, password);
+      await handleLogin({email, password});
+    } catch (err) {
+      // вывести ошибку
+      console.log(err);
+    }
+  }
+
+  const handleLogin = async ({email, password}) => {
+    try {
+      const token = await auth.authorize(email, password);
+      localStorage.setItem('token', token);
+      login();
+    } catch (err) {
+      // вывести ошибку
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        await auth.checkToken(localStorage.getItem('token'))
+        login();
+      } catch (err) {
+        // если токен не найден, просрочен, все, что угодно - ничего не делаем - пусть пользователь логинится заново
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="page">
       <Route exact path="/(movies|saved-movies|profile|)">
-        <Header onMenuOpen={openMenu} onMenuClose={closeMenu}/>
+        <Header isLoggedIn={isLoggedIn} onMenuOpen={openMenu} onMenuClose={closeMenu}/>
       </Route>
       <Switch>
         <Route exact path="/signup" >
-          <Register/>
+          <Register onRegister={handleRegister} />
         </Route>
         <Route exact path="/signin">
-          <Login/>
+          <Login onLogin={handleLogin}/>
         </Route>
         <Route exact path="/profile">
           <Profile/>

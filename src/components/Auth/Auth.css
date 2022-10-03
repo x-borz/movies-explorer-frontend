@@ -63,6 +63,10 @@
   color: #fff;
 }
 
+.auth__input_errored {
+  color: #ee3465;
+}
+
 .auth__input_type_error {
   color: #ee3465;
 }
@@ -79,12 +83,13 @@
   font-size: 10px;
   line-height: 1.2;
   color: #ee3465;
+  overflow: hidden;
 }
 
-.auth__submit_btn {
+.auth__submit-btn {
   margin-top: 133px;
   height: 45px;
-  background: #4285f4;
+  background-color: #4285f4;
   border-radius: 3px;
   font-style: normal;
   font-weight: 500;
@@ -96,26 +101,36 @@
 }
 
 @media screen and (max-width: 600px) {
-  .auth__submit_btn {
+  .auth__submit-btn {
     margin-top: 221px;
     font-size: 12px;
     line-height: 1.25;
   }
 }
 
-.auth__submit_btn_place_login {
+.auth__submit-btn_place_login {
   margin-top: 203px;
 }
 
 @media screen and (max-width: 600px) {
-  .auth__submit_btn_place_login {
+  .auth__submit-btn_place_login {
     margin-top: 291px;
   }
 }
 
-.auth__submit_btn:hover {
+.auth__submit-btn:hover {
   cursor: pointer;
   opacity: .7;
+}
+
+.auth__submit-btn_disabled {
+  background-color: #424242;
+  color: #8b8b8b;
+}
+
+.auth__submit-btn_disabled:hover {
+  opacity: 1;
+  cursor: default;
 }
 
 .auth__wrapper {
