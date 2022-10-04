@@ -75,7 +75,6 @@ function App() {
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    history.push('/sign-in');
     setIsLoggedIn(false);
   }
 
