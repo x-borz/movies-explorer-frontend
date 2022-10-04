@@ -57,6 +57,13 @@
   color: #000;
 }
 
+@media screen and (max-width: 600px) {
+  .notification__header-title {
+    margin-top: 4px;
+    font-size: 16px;
+  }
+}
+
 .notification__close-btn {
   margin-left: auto;
   border: none;
@@ -83,4 +90,10 @@
   font-size: 14px;
   line-height: 1.2;
   color: #000;
+}
+
+@media screen and (max-width: 600px) {
+  .notification__text {
+    font-size: 12px;
+  }
 }
