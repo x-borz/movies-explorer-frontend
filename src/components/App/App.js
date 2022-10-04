@@ -14,6 +14,7 @@ import Menu from "../Menu/Menu";
 import auth from "../../utils/Auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import mainApi from "../../utils/MainApi";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const history = useHistory();
@@ -117,15 +118,9 @@ function App() {
           <Route exact path="/signin">
             <Login onLogin={handleLogin} notification={notification} onNotificationClose={closeNotification}/>
           </Route>
-          <Route exact path="/profile">
-            <Profile onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} notification={notification} onNotificationClose={closeNotification}/>
-          </Route>
-          <Route exact path="/movies">
-            <Movies/>
-          </Route>
-          <Route exact path="/saved-movies">
-            <SavedMovies/>
-          </Route>
+          <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} notification={notification} onNotificationClose={closeNotification} component={Profile}/>
+          <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn} component={Movies}/>
+          <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} component={SavedMovies}/>
           <Route exact path="/">
             <Main/>
           </Route>
