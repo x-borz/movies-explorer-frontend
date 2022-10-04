@@ -1,4 +1,4 @@
-.error-msg {
+.notification {
   display: flex;
   opacity: 0;
   visibility: hidden;
@@ -10,32 +10,44 @@
   transition: visibility .1s linear, opacity .1s linear;
 }
 
-.error-msg_place_auth {
+.notification_place_auth {
   position: absolute;
   bottom: 55px;
 }
 
-.error-msg_visible {
+.notification_place_profile {
+  position: absolute;
+  bottom: 30px;
+}
+
+.notification_visible {
   opacity: 1;
   visibility: visible;
 }
 
-.error-msg__header {
+.notification__header {
   display: flex;
   margin: 4px;
   padding-bottom: 4px;
   border-bottom: #8b8b8b solid 2px;
 }
 
-.error-msg__icon {
+.notification__icon {
   width: 24px;
   height: 24px;
-  background-image: url("../../images/error-ico.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.error-msg__header-title {
+.notification__icon_errored {
+  background-image: url("../../images/error-ico.svg");
+}
+
+.notification__icon_successful {
+  background-image: url("../../images/success-ico.svg");
+}
+
+.notification__header-title {
   margin: 0 0 0 10px;
   padding: 0;
   font-style: normal;
@@ -45,7 +57,7 @@
   color: #000;
 }
 
-.error-msg__close-btn {
+.notification__close-btn {
   margin-left: auto;
   border: none;
   width: 24px;
@@ -58,11 +70,11 @@
   transition: opacity .3s linear;
 }
 
-.error-msg__close-btn:hover {
+.notification__close-btn:hover {
   opacity: .5;
 }
 
-.error-msg__text {
+.notification__text {
   margin: 0;
   padding: 4px;
   flex-grow: 1;

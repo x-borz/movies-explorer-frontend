@@ -1,15 +1,16 @@
 import './Profile.css';
 import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../../utils/forms";
-import {handleNameInput} from "../../utils/utils";
+import {handleEmailInput, handleNameInput} from "../../utils/utils";
 import {useContext, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import Notification from "../Notification/Notification";
 
-function Profile({onSignOut, onUserUpdate}) {
+function Profile({onSignOut, onUserUpdate, notification, onNotificationClose}) {
   const {name, email} = useContext(CurrentUserContext);
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
-  const handleProfileEdition = evt => {
+  const handleSubmit = evt => {
     evt.preventDefault();
     onUserUpdate(values);
   }
@@ -23,7 +24,7 @@ function Profile({onSignOut, onUserUpdate}) {
   return (
     <section className='profile page__section'>
       <h1 className='profile__greeting'>Привет, {name}!</h1>
-      <form className='profile__form' onSubmit={handleProfileEdition}>
+      <form className='profile__form' onSubmit={handleSubmit}>
         <div className='input-group'>
           <label className='profile__label' htmlFor='name'>Имя</label>
           <input className={`profile__input ${errors.name ? 'profile__input_errored' : ''}`} id='name' name='name' type='text' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' defaultValue={values.name} onChange={handleChange} onInput={handleNameInput}/>
@@ -31,10 +32,11 @@ function Profile({onSignOut, onUserUpdate}) {
         </div>
         <div className='input-group'>
           <label className='profile__label' htmlFor='email'>E-mail</label>
-          <input className={`profile__input profile__input_unbordered ${errors.email ? 'profile__input_errored' : ''}`} id='email' name='email' type='email' required defaultValue={values.email} onChange={handleChange}/>
+          <input className={`profile__input profile__input_unbordered ${errors.email ? 'profile__input_errored' : ''}`} id='email' name='email' type='text' pattern='^[\w!#$%&’*+/=?`{|}~^-]+(?:\.[\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$' required defaultValue={values.email} onChange={handleChange} onInput={handleEmailInput}/>
           <span className='profile__error'>{errors.email || ''}</span>
         </div>
         <button className={`profile__edit-btn ${!isFormValid ? 'profile__edit-btn_disabled' : ''}`} type='submit' disabled={!isFormValid}>Редактировать</button>
+        <Notification modifier='profile' notification={notification} onClose={onNotificationClose}/>
       </form>
       <Link className='profile__link' to='/' onClick={onSignOut}>Выйти из аккаунта</Link>
     </section>

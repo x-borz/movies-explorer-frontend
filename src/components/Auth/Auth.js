@@ -3,10 +3,9 @@ import Logo from "../Logo/Logo";
 import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../../utils/forms";
 import {handleEmailInput, handleNameInput} from "../../utils/utils";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import {emailPattern} from "../../utils/constants";
+import Notification from "../Notification/Notification";
 
-function Auth({isRegister, onSubmit, errorMessage, onErrorMsgClose}) {
+function Auth({isRegister, onSubmit, notification, onNotificationClose}) {
   const params = isRegister ?
     {
       title: 'Добро пожаловать!',
@@ -51,7 +50,7 @@ function Auth({isRegister, onSubmit, errorMessage, onErrorMsgClose}) {
         <input className={`auth__input ${errors.password ? 'auth__input_errored' : ''}`} name='password' type='password' required onChange={handleChange}/>
         <span className='auth__error'>{errors.password || ''}</span>
         <button className={`auth__submit-btn ${!isRegister ? 'auth__submit-btn_place_login' : ''} ${isValid ? '' : 'auth__submit-btn_disabled'}`} type='submit' disabled={!isValid}>{params.buttonName}</button>
-        <ErrorMessage modifier='auth' message={errorMessage} onClose={onErrorMsgClose}/>
+        <Notification modifier='auth' notification={notification} onClose={onNotificationClose}/>
       </form>
       <div className='auth__wrapper'>
         <p className='auth__answer'>{params.answer}</p>

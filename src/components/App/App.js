@@ -20,7 +20,11 @@ function App() {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const [notification, setNotification] = useState({
+    content: '',
+    isSuccessful: false
+  });
 
   const openMenu = () => {
     setIsMenuVisible(true);
@@ -30,8 +34,8 @@ function App() {
     setIsMenuVisible(false);
   }
 
-  const closeErrorMessage = () => {
-    setErrorMessage('');
+  const closeNotification = () => {
+    setNotification({...notification, content: ''});
   }
 
   const login = () => {
@@ -44,7 +48,7 @@ function App() {
       await auth.register(name, email, password);
       await handleLogin({email, password});
     } catch (err) {
-      setErrorMessage(err.message);
+      setNotification({content: err.message, isSuccessful: false});
     }
   }
 
@@ -54,7 +58,7 @@ function App() {
       localStorage.setItem('token', token);
       login();
     } catch (err) {
-      setErrorMessage(err.message);
+      setNotification({content: err.message, isSuccessful: false});
     }
   }
 
@@ -62,8 +66,9 @@ function App() {
     try {
       const user = await mainApi.updateUser(name, email);
       setCurrentUser(user);
+      setNotification({content: "Данные пользователя успешно обновлены", isSuccessful: true});
     } catch (err) {
-      console.log(err.message);
+      setNotification({content: err.message, isSuccessful: false});
     }
   }
 
@@ -107,13 +112,13 @@ function App() {
         </Route>
         <Switch>
           <Route exact path="/signup" >
-            <Register onRegister={handleRegister} errorMessage={errorMessage} onErrorMsgClose={closeErrorMessage}/>
+            <Register onRegister={handleRegister} notification={notification} onNotificationClose={closeNotification}/>
           </Route>
           <Route exact path="/signin">
-            <Login onLogin={handleLogin} errorMessage={errorMessage} onErrorMsgClose={closeErrorMessage}/>
+            <Login onLogin={handleLogin} notification={notification} onNotificationClose={closeNotification}/>
           </Route>
           <Route exact path="/profile">
-            <Profile onSignOut={handleSignOut} onUserUpdate={handleUserUpdate}/>
+            <Profile onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} notification={notification} onNotificationClose={closeNotification}/>
           </Route>
           <Route exact path="/movies">
             <Movies/>
