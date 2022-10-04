@@ -6,13 +6,32 @@ class MainApi {
     this._headers = headers;
   }
 
-  async updateUser(name, email, token) {
+  async getUser() {
     const headers = Object.assign({}, this._headers);
-    headers["Authorization"] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
 
     const response = await fetch(`${this._baseUrl}/users/me`, {
-      method: 'POST',
-      headers: this._headers,
+      method: 'GET',
+      headers
+    });
+
+    const json = await response.json();
+
+    switch (response.status) {
+      case 200:
+        return json;
+      default:
+        throw new Error('Что-то пошло не так');
+    }
+  }
+
+  async updateUser(name, email) {
+    const headers = Object.assign({}, this._headers);
+    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+
+    const response = await fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers,
       body: JSON.stringify({name, email})
     });
 

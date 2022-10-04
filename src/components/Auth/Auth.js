@@ -2,9 +2,11 @@ import './Auth.css';
 import Logo from "../Logo/Logo";
 import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../../utils/forms";
-import {handleNameInput} from "../../utils/utils";
+import {handleEmailInput, handleNameInput} from "../../utils/utils";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import {emailPattern} from "../../utils/constants";
 
-function Auth({isRegister, onSubmit}) {
+function Auth({isRegister, onSubmit, errorMessage, onErrorMsgClose}) {
   const params = isRegister ?
     {
       title: 'Добро пожаловать!',
@@ -21,7 +23,7 @@ function Auth({isRegister, onSubmit}) {
       answer: 'Ещё не зарегистрированы?'
     }
 
-  const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
+  const {values, handleChange, errors, isValid} = useFormWithValidation();
 
   const submit = evt => {
     evt.preventDefault();
@@ -42,14 +44,14 @@ function Auth({isRegister, onSubmit}) {
           </>
         }
         <label className='auth__label'>E-mail</label>
-        <input className={`auth__input ${errors.email ? 'auth__input_errored' : ''}`} name='email' type='email' required onChange={handleChange}/>
+        <input className={`auth__input ${errors.email ? 'auth__input_errored' : ''}`} name='email' type='text' pattern='^[\w!#$%&’*+/=?`{|}~^-]+(?:\.[\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$' required onChange={handleChange} onInput={handleEmailInput}/>
         <span className='auth__error'>{errors.email || ''}</span>
 
         <label className='auth__label'>Пароль</label>
         <input className={`auth__input ${errors.password ? 'auth__input_errored' : ''}`} name='password' type='password' required onChange={handleChange}/>
         <span className='auth__error'>{errors.password || ''}</span>
-
         <button className={`auth__submit-btn ${!isRegister ? 'auth__submit-btn_place_login' : ''} ${isValid ? '' : 'auth__submit-btn_disabled'}`} type='submit' disabled={!isValid}>{params.buttonName}</button>
+        <ErrorMessage modifier='auth' message={errorMessage} onClose={onErrorMsgClose}/>
       </form>
       <div className='auth__wrapper'>
         <p className='auth__answer'>{params.answer}</p>

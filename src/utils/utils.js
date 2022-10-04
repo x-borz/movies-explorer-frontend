@@ -6,3 +6,12 @@ export const handleNameInput = evt => {
     target.setCustomValidity('');
   }
 }
+
+export const handleEmailInput = evt => {
+  const target = evt.target;
+  if (target.validity.patternMismatch) {
+    target.setCustomValidity('Введите правильный адрес электронной почты');
+  } else {
+    target.setCustomValidity('');
+  }
+}

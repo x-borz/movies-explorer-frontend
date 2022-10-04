@@ -11,14 +11,16 @@ import {Route, Switch, useHistory} from "react-router-dom";
 import Header from "../Header/Header";
 import {useEffect, useState} from "react";
 import Menu from "../Menu/Menu";
-import auth from "../../utils/auth";
+import auth from "../../utils/Auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import mainApi from "../../utils/MainApi";
 
 function App() {
   const history = useHistory();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
 
   const openMenu = () => {
     setIsMenuVisible(true);
@@ -26,6 +28,10 @@ function App() {
 
   const closeMenu = () => {
     setIsMenuVisible(false);
+  }
+
+  const closeErrorMessage = () => {
+    setErrorMessage('');
   }
 
   const login = () => {
@@ -38,8 +44,7 @@ function App() {
       await auth.register(name, email, password);
       await handleLogin({email, password});
     } catch (err) {
-      // вывести ошибку
-      console.log(err);
+      setErrorMessage(err.message);
     }
   }
 
@@ -49,13 +54,17 @@ function App() {
       localStorage.setItem('token', token);
       login();
     } catch (err) {
-      // вывести ошибку
-      console.log(err);
+      setErrorMessage(err.message);
     }
   }
 
-  const handleUserUpdate = ({name, email}) => {
-    console.log(name, email);
+  const handleUserUpdate = async ({name, email}) => {
+    try {
+      const user = await mainApi.updateUser(name, email);
+      setCurrentUser(user);
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 
   const handleSignOut = () => {
@@ -65,17 +74,30 @@ function App() {
   }
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(token) {
       try {
-        const user = await auth.checkToken(localStorage.getItem('token'));
-        setCurrentUser(user);
+        await auth.checkToken(token);
         login();
       } catch (err) {
         // если токен не найден, просрочен, все, что угодно - ничего не делаем - пусть пользователь логинится заново
       }
     }
-    fetchData();
+    fetchData(localStorage.getItem('token'));
   }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (isLoggedIn) {
+        try {
+          const user = await mainApi.getUser();
+          setCurrentUser(user);
+        } catch (err) {
+          console.log(err.message)
+        }
+      }
+    }
+    fetchData();
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -85,10 +107,10 @@ function App() {
         </Route>
         <Switch>
           <Route exact path="/signup" >
-            <Register onRegister={handleRegister} />
+            <Register onRegister={handleRegister} errorMessage={errorMessage} onErrorMsgClose={closeErrorMessage}/>
           </Route>
           <Route exact path="/signin">
-            <Login onLogin={handleLogin}/>
+            <Login onLogin={handleLogin} errorMessage={errorMessage} onErrorMsgClose={closeErrorMessage}/>
           </Route>
           <Route exact path="/profile">
             <Profile onSignOut={handleSignOut} onUserUpdate={handleUserUpdate}/>

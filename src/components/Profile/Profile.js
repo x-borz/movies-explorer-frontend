@@ -16,7 +16,7 @@ function Profile({onSignOut, onUserUpdate}) {
 
   useEffect(() => {
     resetForm({name, email}, {}, false);
-  }, []);
+  }, [name, email]);
 
   const isFormValid = isValid && (values.name !== name || values.email !== email);
 
@@ -26,15 +26,15 @@ function Profile({onSignOut, onUserUpdate}) {
       <form className='profile__form' onSubmit={handleProfileEdition}>
         <div className='input-group'>
           <label className='profile__label' htmlFor='name'>Имя</label>
-          <input className={`profile__input ${errors.name ? 'profile__input_errored' : ''}`} id='name' name='name' type='text' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' defaultValue={name} onChange={handleChange} onInput={handleNameInput}/>
+          <input className={`profile__input ${errors.name ? 'profile__input_errored' : ''}`} id='name' name='name' type='text' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' defaultValue={values.name} onChange={handleChange} onInput={handleNameInput}/>
           <span className='profile__error'>{errors.name || ''}</span>
         </div>
         <div className='input-group'>
           <label className='profile__label' htmlFor='email'>E-mail</label>
-          <input className={`profile__input profile__input_unbordered ${errors.email ? 'profile__input_errored' : ''}`} id='email' name='email' type='email' required defaultValue={email} onChange={handleChange}/>
+          <input className={`profile__input profile__input_unbordered ${errors.email ? 'profile__input_errored' : ''}`} id='email' name='email' type='email' required defaultValue={values.email} onChange={handleChange}/>
           <span className='profile__error'>{errors.email || ''}</span>
         </div>
-        <button className={`profile__edit-btn ${!isFormValid ? 'profile__edit-btn_disabled' : ''}`} type='submit' disabled={!isValid}>Редактировать</button>
+        <button className={`profile__edit-btn ${!isFormValid ? 'profile__edit-btn_disabled' : ''}`} type='submit' disabled={!isFormValid}>Редактировать</button>
       </form>
       <Link className='profile__link' to='/' onClick={onSignOut}>Выйти из аккаунта</Link>
     </section>
