@@ -87,7 +87,12 @@ function App() {
         // если токен не найден, просрочен, все, что угодно - ничего не делаем - пусть пользователь логинится заново
       }
     }
-    fetchData(localStorage.getItem('token'));
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      fetchData(token);
+    }
   }, []);
 
   useEffect(() => {
@@ -97,7 +102,7 @@ function App() {
           const user = await mainApi.getUser();
           setCurrentUser(user);
         } catch (err) {
-          console.log(err.message)
+          setCurrentUser({name: 'John Dow', email: 'johndow@johndow.com'});
         }
       }
     }
