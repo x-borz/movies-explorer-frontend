@@ -1,9 +1,14 @@
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm(props) {
+function SearchForm({onSubmit}) {
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit();
+  }
+
   return (
-    <form className='search-form'>
+    <form className='search-form' onSubmit={handleSubmit}>
       <div className='search-form__input-with-btn-group'>
         <input className='search-form__input' type='text' placeholder='Фильм' required/>
         <button className='search-form__search-btn' type='submit'>Найти</button>

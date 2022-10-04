@@ -1,7 +1,7 @@
 import './Auth.css';
 import Logo from "../Logo/Logo";
 import {Link} from "react-router-dom";
-import {useFormWithValidation} from "../../utils/forms";
+import {useFormWithValidation} from "../Forms/Forms";
 import {handleEmailInput, handleNameInput} from "../../utils/utils";
 import Notification from "../Notification/Notification";
 

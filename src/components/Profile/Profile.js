@@ -1,6 +1,6 @@
 import './Profile.css';
 import {Link} from "react-router-dom";
-import {useFormWithValidation} from "../../utils/forms";
+import {useFormWithValidation} from "../Forms/Forms";
 import {handleEmailInput, handleNameInput} from "../../utils/utils";
 import {useContext, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
