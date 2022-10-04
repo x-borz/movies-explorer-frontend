@@ -15,12 +15,15 @@ import auth from "../../utils/Auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import mainApi from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import Loading from "../Loading/Loading";
 
 function App() {
   const history = useHistory();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [currentUser, setCurrentUser] = useState({});
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
 
   const [notification, setNotification] = useState({
     content: '',
@@ -39,11 +42,6 @@ function App() {
     setNotification({...notification, content: ''});
   }
 
-  const login = () => {
-    setIsLoggedIn(true);
-    history.push("/movies");
-  }
-
   const handleRegister = async ({name, email, password}) => {
     try {
       await auth.register(name, email, password);
@@ -57,7 +55,8 @@ function App() {
     try {
       const token = await auth.authorize(email, password);
       localStorage.setItem('token', token);
-      login();
+      setIsLoggedIn(true);
+      history.push("/movies");
     } catch (err) {
       setNotification({content: err.message, isSuccessful: false});
     }
@@ -81,18 +80,17 @@ function App() {
   useEffect(() => {
     async function fetchData(token) {
       try {
+        setIsTokenChecked(false)
         await auth.checkToken(token);
-        login();
+        setIsLoggedIn(true);
       } catch (err) {
         // если токен не найден, просрочен, все, что угодно - ничего не делаем - пусть пользователь логинится заново
+      } finally {
+        setIsTokenChecked(true)
       }
     }
 
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      fetchData(token);
-    }
+    fetchData(localStorage.getItem('token'));
   }, []);
 
   useEffect(() => {
@@ -108,6 +106,10 @@ function App() {
     }
     fetchData();
   }, [isLoggedIn]);
+
+  if (!isTokenChecked) {
+    return (<Loading/>);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
