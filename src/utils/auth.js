@@ -1,7 +1,7 @@
-import {authParams} from "./constants";
+import {mainApiUrl, headers} from "./constants";
 
 class Auth {
-  constructor({baseUrl, headers}) {
+  constructor(baseUrl, headers) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
@@ -64,6 +64,6 @@ class Auth {
   }
 }
 
-const auth = new Auth(authParams);
+const auth = new Auth(mainApiUrl, headers);
 
 export default auth;

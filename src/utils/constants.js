@@ -1,8 +1,4 @@
-const mainApi = 'https://api.xborz.diploma.nomoredomains.club';
-
-export const authParams = {
-  baseUrl: mainApi,
-  headers: {
-    'Content-Type': 'application/json'
-  }
+export const mainApiUrl = 'https://api.xborz.diploma.nomoredomains.club';
+export const headers = {
+  'Content-Type': 'application/json'
 }
