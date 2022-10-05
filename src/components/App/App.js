@@ -16,19 +16,31 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import mainApi from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Loading from "../Loading/Loading";
+import NotificationContext from "../../contexts/NotificationContext";
 
 function App() {
   const history = useHistory();
+
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [currentUser, setCurrentUser] = useState({});
   const [isTokenChecked, setIsTokenChecked] = useState(false);
-
   const [notification, setNotification] = useState({
     content: '',
     isSuccessful: false
   });
+
+  const showFailedNotification = (message) => {
+    setNotification({content: message, isSuccessful: false});
+  }
+
+  const showSuccessfulNotification = (message) => {
+    setNotification({content: message, isSuccessful: true});
+  }
+
+  const closeNotification = () => {
+    setNotification({...notification, content: ''});
+  }
 
   const openMenu = () => {
     setIsMenuVisible(true);
@@ -38,16 +50,12 @@ function App() {
     setIsMenuVisible(false);
   }
 
-  const closeNotification = () => {
-    setNotification({...notification, content: ''});
-  }
-
   const handleRegister = async ({name, email, password}) => {
     try {
       await auth.register(name, email, password);
       await handleLogin({email, password});
     } catch (err) {
-      setNotification({content: err.message, isSuccessful: false});
+      showFailedNotification(err.message);
     }
   }
 
@@ -58,7 +66,7 @@ function App() {
       setIsLoggedIn(true);
       history.push("/movies");
     } catch (err) {
-      setNotification({content: err.message, isSuccessful: false});
+      showFailedNotification(err.message);
     }
   }
 
@@ -66,9 +74,9 @@ function App() {
     try {
       const user = await mainApi.updateUser(name, email);
       setCurrentUser(user);
-      setNotification({content: "Данные пользователя успешно обновлены", isSuccessful: true});
+      showSuccessfulNotification("Данные пользователя успешно обновлены");
     } catch (err) {
-      setNotification({content: err.message, isSuccessful: false});
+      showFailedNotification(err.message);
     }
   }
 
@@ -113,32 +121,34 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Route exact path="/(movies|saved-movies|profile|)">
-          <Header isLoggedIn={isLoggedIn} onMenuOpen={openMenu} onMenuClose={closeMenu}/>
-        </Route>
-        <Switch>
-          <Route exact path="/signup" >
-            <Register onRegister={handleRegister} notification={notification} onNotificationClose={closeNotification}/>
+      <NotificationContext.Provider value={{notification, showFailedNotification, showSuccessfulNotification, closeNotification}}>
+        <div className="page">
+          <Route exact path="/(movies|saved-movies|profile|)">
+            <Header isLoggedIn={isLoggedIn} onMenuOpen={openMenu} onMenuClose={closeMenu}/>
           </Route>
-          <Route exact path="/signin">
-            <Login onLogin={handleLogin} notification={notification} onNotificationClose={closeNotification}/>
+          <Switch>
+            <Route exact path="/signup" >
+              <Register onRegister={handleRegister}/>
+            </Route>
+            <Route exact path="/signin">
+              <Login onLogin={handleLogin}/>
+            </Route>
+            <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} component={Profile}/>
+            <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn} component={Movies}/>
+            <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} component={SavedMovies}/>
+            <Route exact path="/">
+              <Main/>
+            </Route>
+            <Route path="*">
+              <NotFound/>
+            </Route>
+          </Switch>
+          <Route exact path="/(movies|saved-movies|)">
+            <Footer/>
           </Route>
-          <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} notification={notification} onNotificationClose={closeNotification} component={Profile}/>
-          <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn} notification={notification} onNotificationClose={closeNotification} setNotification={setNotification} component={Movies}/>
-          <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} notification={notification} onNotificationClose={closeNotification} setNotification={setNotification} component={SavedMovies}/>
-          <Route exact path="/">
-            <Main/>
-          </Route>
-          <Route path="*">
-            <NotFound/>
-          </Route>
-        </Switch>
-        <Route exact path="/(movies|saved-movies|)">
-          <Footer/>
-        </Route>
-        <Menu isMenuVisible={isMenuVisible} onMenuClose={closeMenu}/>
-      </div>
+          <Menu isMenuVisible={isMenuVisible} onMenuClose={closeMenu}/>
+        </div>
+      </NotificationContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

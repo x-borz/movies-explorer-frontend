@@ -4,7 +4,7 @@ import mainApi from "../../utils/MainApi";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function SavedMovies({notification, onNotificationClose, setNotification}) {
+function SavedMovies() {
   const isSavedMoviesPage = true;
 
   const [searchString, setSearchString] = useState('')
@@ -36,9 +36,6 @@ function SavedMovies({notification, onNotificationClose, setNotification}) {
       isChecked={isChecked}
       setIsChecked={setIsChecked}
       onSearch={handleSearchMovies}
-      notification={notification}
-      setNotification={setNotification}
-      onNotificationClose={onNotificationClose}
       isMoreBtnVisible={false}
     >
       <MoviesCardList>

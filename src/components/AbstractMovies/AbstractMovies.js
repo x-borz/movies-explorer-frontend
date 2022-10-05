@@ -2,10 +2,10 @@ import './AbstractMovies.css';
 import SearchForm from "../SearchForm/SearchForm";
 import Notification from "../Notification/Notification";
 
-function AbstractMovies({isSavedMoviesPage, searchString, setSearchString, isChecked, setIsChecked, onSearch, notification, onNotificationClose, isMoreBtnVisible, onMoreBtnClick, children}) {
+function AbstractMovies({isSavedMoviesPage, searchString, setSearchString, isChecked, setIsChecked, onSearch, isMoreBtnVisible, onMoreBtnClick, children}) {
   return (
     <main className='abstract-movies page__section'>
-      <Notification modifier='abstract-movies' notification={notification} onClose={onNotificationClose}/>
+      <Notification modifier='abstract-movies'/>
       <SearchForm onSubmit={onSearch} searchString={searchString} setSearchString={setSearchString} isChecked={isChecked} setIsChecked={setIsChecked}/>
       {children}
       <div className={`abstract-movies__more ${isSavedMoviesPage? 'abstract-movies__more_place_saved-movies' : ''}`}>

@@ -1,5 +1,5 @@
 import AbstractMovies from "../AbstractMovies/AbstractMovies";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import moviesApi from "../../utils/MoviesApi";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
@@ -7,9 +7,12 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import {getIndexStep} from "../../utils/utils";
 import mainApi from "../../utils/MainApi";
 import {moviesApiUrl} from "../../utils/constants";
+import NotificationContext from "../../contexts/NotificationContext";
 
-function Movies({notification, onNotificationClose, setNotification}) {
+function Movies() {
   const isSavedMoviesPage = false;
+
+  const {showFailedNotification} = useContext(NotificationContext);
 
   const [searchString, setSearchString] = useState('')
   const [isChecked, setIsChecked] = useState(false);
@@ -31,7 +34,7 @@ function Movies({notification, onNotificationClose, setNotification}) {
 
   const handleSearchMovies = async (searchString, isChecked) => {
     if (!searchString) {
-      setNotification({content: 'Нужно ввести ключевое слово', isSuccessful: false});
+      showFailedNotification('Нужно ввести ключевое слово');
       return;
     }
 
@@ -45,7 +48,7 @@ function Movies({notification, onNotificationClose, setNotification}) {
     try {
       movies = await moviesApi.getMovies();
     } catch (err) {
-      setNotification({content: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз', isSuccessful: false});
+      showFailedNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
       return;
     } finally {
       saveData(searchString, isChecked, []);
@@ -131,9 +134,6 @@ function Movies({notification, onNotificationClose, setNotification}) {
       isChecked={isChecked}
       setIsChecked={setIsChecked}
       onSearch={handleSearchMovies}
-      notification={notification}
-      onNotificationClose={onNotificationClose}
-      setNotification={setNotification}
       isMoreBtnVisible={isMoreBtnVisible}
       onMoreBtnClick={clickMoreButton}
     >

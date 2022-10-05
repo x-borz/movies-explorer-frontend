@@ -1,8 +1,8 @@
 import Auth from "../Auth/Auth";
 
-function Login({onLogin, notification, onNotificationClose}) {
+function Login({onLogin}) {
   return (
-    <Auth isRegister={false} onSubmit={onLogin} notification={notification} onNotificationClose={onNotificationClose}/>
+    <Auth isRegister={false} onSubmit={onLogin}/>
   );
 }
 
