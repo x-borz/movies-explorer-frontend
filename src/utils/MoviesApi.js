@@ -7,7 +7,7 @@ class MoviesApi {
   }
 
   async getMovies() {
-    const response = await fetch(this._baseUrl, {
+    const response = await fetch(`${this._baseUrl}/beatfilm-movies`, {
       method: 'GET',
       headers: this._headers
     });

@@ -5,9 +5,11 @@
   flex-direction: column;
   height: 120px;
   width: 100%;
+  max-width: 300px;
   background-color: #fff;
   border-radius: 10px;
   transition: visibility .1s linear, opacity .1s linear;
+  z-index: 5;
 }
 
 .notification_place_auth {
@@ -18,6 +20,13 @@
 .notification_place_profile {
   position: absolute;
   bottom: 30px;
+}
+
+.notification_place_abstract-movies {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .notification_visible {

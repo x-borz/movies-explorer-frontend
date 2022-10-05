@@ -1,36 +1,84 @@
 import AbstractMovies from "../AbstractMovies/AbstractMovies";
-import img1 from "../../images/temp/33-words-about-design.png";
-import img2 from "../../images/temp/34-words-about-design.png";
-import img3 from "../../images/temp/35-words-about-design.png";
-import img4 from "../../images/temp/36-words-about-design.png";
+import {useEffect, useState} from "react";
 import moviesApi from "../../utils/MoviesApi";
 
-function Movies(props) {
+function Movies({notification, onNotificationClose, setNotification}) {
   const isSavedMoviesPage = false;
-  const movies = [
-    {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage, isLiked: false},
-    {name: '34 слова о дизайне', duration: '1ч 47м', img: img2, isSavedMoviesPage, isLiked: true},
-    {name: '35 слов о дизайне', duration: '1ч 47м', img: img3, isSavedMoviesPage, isLiked: false},
-    {name: '36 слов о дизайне', duration: '1ч 47м', img: img4, isSavedMoviesPage, isLiked: true},
-    {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage, isLiked: false},
-    {name: '34 слова о дизайне', duration: '1ч 47м', img: img2, isSavedMoviesPage, isLiked: true},
-    {name: '35 слов о дизайне', duration: '1ч 47м', img: img3, isSavedMoviesPage, isLiked: false},
-    {name: '36 слов о дизайне', duration: '1ч 47м', img: img4, isSavedMoviesPage, isLiked: true},
-    {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage, isLiked: false},
-    {name: '34 слова о дизайне', duration: '1ч 47м', img: img2, isSavedMoviesPage, isLiked: true}
-  ];
 
-  const handleSubmit = async () => {
+  const [searchString, setSearchString] = useState('')
+  const [isChecked, setIsChecked] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [hasBeenSearched, setHasBeenSearched] = useState(false);
+
+  const handleSearchMovies = async (searchString, isChecked) => {
+    if (!searchString) {
+      setNotification({content: 'Нужно ввести ключевое слово', isSuccessful: false});
+      return;
+    }
+
+    const search = searchString.toLowerCase();
+    let movies = [];
+
     try {
-      const movies = await moviesApi.getMovies();
-      console.log(movies);
+      movies = await moviesApi.getMovies();
     } catch (err) {
       console.log(err);
+      //todo: вывести ошибку куда надо
     }
+
+    movies = movies.filter(movie => {
+      return (isChecked ? movie.duration <= 40 : true) &&
+        (
+          movie.nameRU.toLowerCase().includes(search) ||
+          movie.nameEN.toLowerCase().includes(search) ||
+          movie.country.toLowerCase().includes(search) ||
+          movie.director.toLowerCase().includes(search) ||
+          movie.description.toLowerCase().includes(search)
+        )
+    })
+
+    const data = {searchString, isChecked, movies};
+
+    setSearchString(searchString);
+    setIsChecked(isChecked);
+    setMovies(movies);
+
+    localStorage.setItem('search', JSON.stringify(data));
   };
 
+  useEffect(() => {
+    const search = localStorage.getItem('search')
+
+    setHasBeenSearched(!!search);
+
+    if (!search) {
+      setSearchString('');
+      setIsChecked(false);
+      setMovies([]);
+
+      return;
+    }
+
+    const {searchString, isChecked, movies} = JSON.parse(search);
+
+    setSearchString(searchString);
+    setIsChecked(isChecked);
+    setMovies(movies);
+  }, []);
+
   return (
-    <AbstractMovies isSavedMoviesPage={isSavedMoviesPage} movies={movies} onSubmit={handleSubmit}/>
+    <AbstractMovies
+      isSavedMoviesPage={isSavedMoviesPage}
+      movies={movies}
+      searchString={searchString}
+      setSearchString={setSearchString}
+      isChecked={isChecked}
+      setIsChecked={setIsChecked}
+      hasBeenSearched={hasBeenSearched}
+      onSearch={handleSearchMovies}
+      notification={notification}
+      onNotificationClose={onNotificationClose}
+    />
   );
 }
 

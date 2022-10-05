@@ -3,7 +3,7 @@ import img1 from "../../images/temp/33-words-about-design.png";
 import img2 from "../../images/temp/34-words-about-design.png";
 import img3 from "../../images/temp/35-words-about-design.png";
 
-function SavedMovies(props) {
+function SavedMovies({notification, onNotificationClose}) {
   const isSavedMoviesPage = true;
   const movies = [
     {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage},
@@ -12,7 +12,7 @@ function SavedMovies(props) {
   ];
 
   return (
-    <AbstractMovies isSavedMoviesPage={isSavedMoviesPage} movies={movies}/>
+    <AbstractMovies isSavedMoviesPage={isSavedMoviesPage} movies={movies} notification={notification} onNotificationClose={onNotificationClose}/>
   );
 }
 
