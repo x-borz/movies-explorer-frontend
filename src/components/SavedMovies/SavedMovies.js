@@ -14,20 +14,18 @@ function SavedMovies() {
   const [savedMoviesToShow, setSavedMoviesToShow] = useState([]);
 
   const handleSearchMovies = (searchString, isChecked) => {
-    const movies = filterMovies(savedMovies, searchString, isChecked);
     setSearchString(searchString);
     setIsChecked(isChecked);
-    setSavedMoviesToShow(movies);
+    setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
 
-    localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked, movies}));
+    localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked}));
   }
 
   const handleCardButtonClick = async (movie) => {
     try {
       await mainApi.deleteMovie(movie._id);
-      setSavedMoviesToShow(prevMovies => prevMovies.filter(m => movie._id !== m._id));
-      const {searchString, isChecked} = JSON.parse(localStorage.getItem('searchSaved'));
-      localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked, movies: savedMoviesToShow}));
+      setSavedMovies(prevMovies => prevMovies.filter(m => movie._id !== m._id));
+      localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked}));
     } catch (err) {
       //todo: вывод ошибки
       console.log(err);
@@ -40,7 +38,7 @@ function SavedMovies() {
         const movies = await mainApi.getAllMovies();
         setSavedMovies(movies);
       } catch (err) {
-        //todo ошибки
+        //todo: вывод ошибки
         console.log(err);
       }
     }
@@ -50,18 +48,19 @@ function SavedMovies() {
 
   useEffect(() => {
     try {
-      const {searchString, isChecked, movies} = JSON.parse(localStorage.getItem('searchSaved'));
-      console.log(searchString, isChecked, movies)
+      const {searchString, isChecked} = JSON.parse(localStorage.getItem('searchSaved'));
       setSearchString(searchString);
       setIsChecked(isChecked);
-      setSavedMoviesToShow(movies);
+      setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
     } catch (err) {
       setSearchString('');
       setIsChecked(false);
       setSavedMoviesToShow([]);
     }
 
-  }, []);
+  }, [savedMovies]);
+
+  const hasNoContent = savedMoviesToShow.length === 0;
 
   return (
     <AbstractMovies
@@ -73,11 +72,14 @@ function SavedMovies() {
       onSearch={handleSearchMovies}
       isMoreBtnVisible={false}
     >
-      <MoviesCardList>
-        {savedMoviesToShow.map(movie =>
-          <MoviesCard key={movie._id} movie={movie} onButtonClick={handleCardButtonClick} isSavedMoviesPage={true}/>
-        )}
-      </MoviesCardList>
+      {hasNoContent
+        ? <span className='abstract-movies__not-found'>Ничего не найдено</span>
+        : <MoviesCardList>
+            {savedMoviesToShow.map(movie =>
+              <MoviesCard key={movie._id} movie={movie} onButtonClick={handleCardButtonClick} isSavedMoviesPage={true}/>
+            )}
+          </MoviesCardList>
+      }
     </AbstractMovies>
   );
 }
