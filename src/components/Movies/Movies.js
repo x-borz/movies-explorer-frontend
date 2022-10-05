@@ -86,10 +86,11 @@ function Movies({notification, onNotificationClose, setNotification}) {
         trailerLink: movie.trailerLink,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
-        thumbnail: movie.image.previewUrl,
+        thumbnail: moviesApiUrl + '/' + movie.image.formats.thumbnail.url,
         movieId: movie.id
       });
     } catch (err) {
+      //todo вывод ошибки
       console.log(err.message);
     }
   }
@@ -132,6 +133,7 @@ function Movies({notification, onNotificationClose, setNotification}) {
       onSearch={handleSearchMovies}
       notification={notification}
       onNotificationClose={onNotificationClose}
+      setNotification={setNotification}
       isMoreBtnVisible={isMoreBtnVisible}
       onMoreBtnClick={clickMoreButton}
     >

@@ -23,8 +23,8 @@
 }
 
 .notification_place_abstract-movies {
-  position: absolute;
-  top: 150px;
+  position: fixed;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
 }
