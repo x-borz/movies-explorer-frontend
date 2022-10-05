@@ -49,6 +49,31 @@ class MainApi {
         throw new Error('Что-то пошло не так');
     }
   }
+
+  async createMovie({country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId}) {
+    const headers = Object.assign({}, this._headers);
+    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+
+    const response = await fetch(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId})
+    });
+
+    const json = await response.json();
+
+    switch (response.status) {
+      case 200:
+        return json;
+      case 400:
+      case 401:
+      case 409:
+        console.log(json)
+        throw new Error(json.message);
+      default:
+        throw new Error('Что-то пошло не так');
+    }
+  }
 }
 
 const mainApi = new MainApi(mainApiUrl, headers);

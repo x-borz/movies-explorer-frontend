@@ -5,6 +5,8 @@ import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {getIndexStep} from "../../utils/utils";
+import mainApi from "../../utils/MainApi";
+import {moviesApiUrl} from "../../utils/constants";
 
 function Movies({notification, onNotificationClose, setNotification}) {
   const isSavedMoviesPage = false;
@@ -69,6 +71,29 @@ function Movies({notification, onNotificationClose, setNotification}) {
 
   const clickMoreButton = () => setMovieIndex(movieIndex + getIndexStep());
 
+  const handleCardButtonClick = async (movie) => {
+    try {
+      const previews = movie.image.previewUrl.split('\n');
+      console.log(previews);
+
+      await mainApi.createMovie({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: moviesApiUrl + '/' + movie.image.url,
+        trailerLink: movie.trailerLink,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: movie.image.previewUrl,
+        movieId: movie.id
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
   useEffect(() => {
     const search = localStorage.getItem('search')
 
@@ -114,8 +139,8 @@ function Movies({notification, onNotificationClose, setNotification}) {
       {!isLoading && !hasNoAttempts && hasNoContent && <span className='abstract-movies__not-found'>Ничего не найдено</span>}
       {!isLoading && !hasNoAttempts && !hasNoContent &&
         <MoviesCardList>
-          {moviesToShow.map(moviesToShow =>
-            <MoviesCard key={moviesToShow.id} movie={moviesToShow}/>
+          {moviesToShow.map(movie =>
+            <MoviesCard key={movie.id} movie={movie} onButtonClick={handleCardButtonClick} isSavedMoviesPage={false}/>
           )}
         </MoviesCardList>
       }
