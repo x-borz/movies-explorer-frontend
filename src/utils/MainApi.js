@@ -74,6 +74,30 @@ class MainApi {
     }
   }
 
+  async deleteMovie(movieId) {
+    const headers = Object.assign({}, this._headers);
+    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+
+    const response = await fetch(`${this._baseUrl}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers
+    });
+
+    const json = await response.json();
+
+    switch (response.status) {
+      case 200:
+        return json;
+      case 400:
+      case 401:
+      case 403:
+      case 404:
+        throw new Error(json.message);
+      default:
+        throw new Error('Что-то пошло не так');
+    }
+  }
+
   async getAllMovies() {
     const headers = Object.assign({}, this._headers);
     headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;

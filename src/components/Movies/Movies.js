@@ -4,7 +4,7 @@ import moviesApi from "../../utils/MoviesApi";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import {getIndexStep} from "../../utils/utils";
+import {filterMovies, getIndexStep} from "../../utils/utils";
 import mainApi from "../../utils/MainApi";
 import {moviesApiUrl} from "../../utils/constants";
 import NotificationContext from "../../contexts/NotificationContext";
@@ -36,44 +36,25 @@ function Movies() {
     setHasNoAttempts(false);
     setIsLoading(true);
 
-    const search = searchString.toLowerCase();
-
-    let movies;
+    let movies = [];
 
     try {
       movies = await moviesApi.getMovies();
     } catch (err) {
       showFailedNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-      return;
-    } finally {
-      saveData(searchString, isChecked, []);
-      setIsLoading(false);
     }
 
-    movies = movies.filter(movie => {
-      return (isChecked ? movie.duration <= 40 : true) &&
-        (
-          movie.nameRU.toLowerCase().includes(search) ||
-          movie.nameEN.toLowerCase().includes(search) ||
-          movie.country.toLowerCase().includes(search) ||
-          movie.director.toLowerCase().includes(search) ||
-          movie.description.toLowerCase().includes(search)
-        )
-    });
-
-    setMovieIndex(0);
+    movies = filterMovies(movies, searchString, isChecked);
 
     saveData(searchString, isChecked, movies);
     setIsLoading(false);
+    setMovieIndex(0);
   };
 
   const clickMoreButton = () => setMovieIndex(movieIndex + getIndexStep());
 
   const handleCardButtonClick = async (movie) => {
     try {
-      const previews = movie.image.previewUrl.split('\n');
-      console.log(previews);
-
       await mainApi.createMovie({
         country: movie.country,
         director: movie.director,

@@ -40,3 +40,16 @@ export const getIndexStep = () => {
     return 5;
   }
 }
+
+export const filterMovies = (movies, searchString, isChecked) => {
+  const search = searchString.toLowerCase();
+  return movies.filter(movie => {
+    return (isChecked ? movie.duration <= 40 : true) && (
+        movie.nameRU.toLowerCase().includes(search) ||
+        movie.nameEN.toLowerCase().includes(search) ||
+        movie.country.toLowerCase().includes(search) ||
+        movie.director.toLowerCase().includes(search) ||
+        movie.description.toLowerCase().includes(search)
+      )
+  });
+}
