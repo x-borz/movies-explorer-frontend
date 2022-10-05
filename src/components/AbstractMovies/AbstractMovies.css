@@ -1,5 +1,7 @@
 .abstract-movies {
   max-width: 1280px;
+  display: flex;
+  flex-direction: column;
 }
 
 .abstract-movies__more {
@@ -41,4 +43,13 @@
 
 .abstract-movies__more-btn_hidden {
   display: none;
+}
+
+.abstract-movies__not-found {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.25;
+  text-align: center;
+  color: #fff;
 }

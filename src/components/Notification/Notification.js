@@ -4,7 +4,7 @@ import {useEffect} from "react";
 function Notification({modifier, notification, onClose}) {
   useEffect(() => {
     if (notification.content) {
-      const timer = setTimeout(onClose, 5000);
+      const timer = setTimeout(onClose, 10000);
       return () => {
         onClose();
         clearTimeout(timer);
