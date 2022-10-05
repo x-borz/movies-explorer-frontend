@@ -9,14 +9,16 @@ function AbstractMovies({isSavedMoviesPage, movies, searchString, setSearchStrin
     <main className='abstract-movies page__section'>
       <Notification modifier='abstract-movies' notification={notification} onClose={onNotificationClose}/>
       <SearchForm onSubmit={onSearch} searchString={searchString} setSearchString={setSearchString} isChecked={isChecked} setIsChecked={setIsChecked}/>
-      {
-        // hasBeenSearched &&
-        <MoviesCardList isSavedMoviesPage={isSavedMoviesPage}>
-          {movies.map(movie =>
-            <MoviesCard key={movie.id} movie={movie}/>
-          )}
-        </MoviesCardList>
-      }
+
+      <MoviesCardList>
+        {movies.map(movie =>
+          <MoviesCard key={movie.id} movie={movie}/>
+        )}
+      </MoviesCardList>
+
+      <div className={`abstract-movies__more ${isSavedMoviesPage? 'abstract-movies__more_place_saved-movies' : ''}`}>
+        <button className={`abstract-movies__more-btn ${isSavedMoviesPage ? 'abstract-movies__more-btn_hidden' : ''}`} type='button'>Ещё</button>
+      </div>
     </main>
   );
 }

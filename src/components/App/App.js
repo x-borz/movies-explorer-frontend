@@ -126,7 +126,7 @@ function App() {
           </Route>
           <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} notification={notification} onNotificationClose={closeNotification} component={Profile}/>
           <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn} notification={notification} onNotificationClose={closeNotification} setNotification={setNotification} component={Movies}/>
-          <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} notification={notification} onNotificationClose={closeNotification} component={SavedMovies}/>
+          <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} notification={notification} onNotificationClose={closeNotification} setNotification={setNotification} component={SavedMovies}/>
           <Route exact path="/">
             <Main/>
           </Route>

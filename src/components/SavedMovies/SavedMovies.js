@@ -1,18 +1,39 @@
 import AbstractMovies from "../AbstractMovies/AbstractMovies";
-import img1 from "../../images/temp/33-words-about-design.png";
-import img2 from "../../images/temp/34-words-about-design.png";
-import img3 from "../../images/temp/35-words-about-design.png";
+import {useEffect, useState} from "react";
 
-function SavedMovies({notification, onNotificationClose}) {
+function SavedMovies({notification, onNotificationClose, setNotification}) {
   const isSavedMoviesPage = true;
-  const movies = [
-    {name: '33 слова о дизайне', duration: '1ч 47м', img: img1, isSavedMoviesPage},
-    {name: '34 слова о дизайне', duration: '1ч 47м', img: img2, isSavedMoviesPage},
-    {name: '35 слов о дизайне', duration: '1ч 47м', img: img3, isSavedMoviesPage},
-  ];
+
+  const [searchString, setSearchString] = useState('')
+  const [isChecked, setIsChecked] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [hasBeenSearched, setHasBeenSearched] = useState(true);
+
+  useEffect(() =>
+    setMovies([
+      {nameRU: '33 слова о дизайне', duration: '100', image: {url: '/uploads/stones_in_exile_b2f1b8f4b7.jpeg'}, isSavedMoviesPage},
+      {nameRU: '34 слова о дизайне', duration: '102', image: {url: '/uploads/stones_in_exile_b2f1b8f4b7.jpeg'}, isSavedMoviesPage},
+      {nameRU: '35 слов о дизайне', duration: '221', image: {url: '/uploads/stones_in_exile_b2f1b8f4b7.jpeg'}, isSavedMoviesPage},
+    ])
+  );
+
+  const handleSearchMovies = (searchString, isChecked) => {
+
+  }
 
   return (
-    <AbstractMovies isSavedMoviesPage={isSavedMoviesPage} movies={movies} notification={notification} onNotificationClose={onNotificationClose}/>
+    <AbstractMovies
+      isSavedMoviesPage={isSavedMoviesPage}
+      movies={movies}
+      searchString={searchString}
+      setSearchString={setSearchString}
+      isChecked={isChecked}
+      setIsChecked={setIsChecked}
+      hasBeenSearched={hasBeenSearched}
+      onSearch={handleSearchMovies}
+      notification={notification}
+      onNotificationClose={onNotificationClose}
+    />
   );
 }
 
