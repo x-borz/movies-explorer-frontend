@@ -30,3 +30,13 @@ export const formatDuration = (durationInMinutes) => {
 
   return result;
 }
+
+export const getIndexStep = () => {
+  if (window.innerWidth >= 1280) {
+    return 3;
+  } else if (window.innerWidth >= 768) {
+    return 2;
+  } else {
+    return 5;
+  }
+}

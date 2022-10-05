@@ -4,6 +4,7 @@ import moviesApi from "../../utils/MoviesApi";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import {getIndexStep} from "../../utils/utils";
 
 function Movies({notification, onNotificationClose, setNotification}) {
   const isSavedMoviesPage = false;
@@ -66,9 +67,7 @@ function Movies({notification, onNotificationClose, setNotification}) {
     setIsLoading(false);
   };
 
-  const clickMoreButton = () => {
-    setMovieIndex(movieIndex + 3);
-  }
+  const clickMoreButton = () => setMovieIndex(movieIndex + getIndexStep());
 
   useEffect(() => {
     const search = localStorage.getItem('search')
@@ -91,8 +90,9 @@ function Movies({notification, onNotificationClose, setNotification}) {
   }, []);
 
   useEffect(() => {
-    setIsMoreBtnVisible(movieIndex + 3 <= movies.length);
-    setMoviesToShow(movies.slice(0, movieIndex + 3));
+    const nextIndex = movieIndex + getIndexStep();
+    setIsMoreBtnVisible(nextIndex < movies.length);
+    setMoviesToShow(movies.slice(0, nextIndex));
   }, [movieIndex, movies]);
 
   const hasNoContent = movies.length === 0;
