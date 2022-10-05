@@ -33,11 +33,6 @@ function Movies() {
   }
 
   const handleSearchMovies = async (searchString, isChecked) => {
-    if (!searchString) {
-      showFailedNotification('Нужно ввести ключевое слово');
-      return;
-    }
-
     setHasNoAttempts(false);
     setIsLoading(true);
 
