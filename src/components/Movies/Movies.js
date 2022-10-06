@@ -6,7 +6,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {filterMovies, getIndexStep} from "../../utils/utils";
 import mainApi from "../../utils/MainApi";
-import {moviesApiUrl} from "../../utils/constants";
+import {MOVIES_API_URL} from "../../utils/constants";
 import NotificationContext from "../../contexts/NotificationContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
@@ -75,11 +75,11 @@ function Movies({savedMovies, setSavedMovies}) {
           duration: movie.duration,
           year: movie.year,
           description: movie.description,
-          image: moviesApiUrl + '/' + movie.image.url,
+          image: MOVIES_API_URL + '/' + movie.image.url,
           trailerLink: movie.trailerLink,
           nameRU: movie.nameRU,
           nameEN: movie.nameEN,
-          thumbnail: moviesApiUrl + '/' + movie.image.formats.thumbnail.url,
+          thumbnail: MOVIES_API_URL + '/' + movie.image.formats.thumbnail.url,
           movieId: movie.id
         });
         setSavedMovies([...savedMovies, newMovie]);

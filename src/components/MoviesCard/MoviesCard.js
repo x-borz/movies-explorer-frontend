@@ -1,9 +1,9 @@
 import './MoviesCard.css';
-import {moviesApiUrl} from "../../utils/constants";
+import {MOVIES_API_URL} from "../../utils/constants";
 import {formatDuration} from "../../utils/utils";
 
 function MoviesCard({movie, onButtonClick, isSavedMoviesPage}) {
-  const img = isSavedMoviesPage ? movie.image : `${moviesApiUrl}/${movie.image.url}`;
+  const img = isSavedMoviesPage ? movie.image : `${MOVIES_API_URL}/${movie.image.url}`;
 
   const handleCardClick = () => {
     window.open(movie.trailerLink, '_blank', 'noopener,noreferrer');
