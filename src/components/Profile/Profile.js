@@ -5,11 +5,9 @@ import {handleEmailInput, handleNameInput} from "../../utils/utils";
 import {useContext, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Notification from "../Notification/Notification";
-import NotificationContext from "../../contexts/NotificationContext";
 
 function Profile({onSignOut, onUserUpdate}) {
   const {name, email} = useContext(CurrentUserContext);
-  const {notification, closeNotification} = useContext(NotificationContext);
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
   const handleSubmit = evt => {
@@ -38,7 +36,7 @@ function Profile({onSignOut, onUserUpdate}) {
           <span className='profile__error'>{errors.email || ''}</span>
         </div>
         <button className={`profile__edit-btn ${!isFormValid ? 'profile__edit-btn_disabled' : ''}`} type='submit' disabled={!isFormValid}>Редактировать</button>
-        <Notification modifier='profile' notification={notification} onClose={closeNotification}/>
+        <Notification modifier='profile'/>
       </form>
       <Link className='profile__link' to='/' onClick={onSignOut}>Выйти из аккаунта</Link>
     </section>

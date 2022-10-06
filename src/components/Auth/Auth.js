@@ -4,8 +4,6 @@ import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../Forms/Forms";
 import {handleEmailInput, handleNameInput} from "../../utils/utils";
 import Notification from "../Notification/Notification";
-import {useContext} from "react";
-import NotificationContext from "../../contexts/NotificationContext";
 
 function Auth({isRegister, onSubmit}) {
   const params = isRegister ?
@@ -25,7 +23,6 @@ function Auth({isRegister, onSubmit}) {
     }
 
   const {values, handleChange, errors, isValid} = useFormWithValidation();
-  const {notification, closeNotification} = useContext(NotificationContext);
 
   const submit = evt => {
     evt.preventDefault();
@@ -53,7 +50,7 @@ function Auth({isRegister, onSubmit}) {
         <input className={`auth__input ${errors.password ? 'auth__input_errored' : ''}`} name='password' type='password' required onChange={handleChange}/>
         <span className='auth__error'>{errors.password || ''}</span>
         <button className={`auth__submit-btn ${!isRegister ? 'auth__submit-btn_place_login' : ''} ${isValid ? '' : 'auth__submit-btn_disabled'}`} type='submit' disabled={!isValid}>{params.buttonName}</button>
-        <Notification modifier='auth' notification={notification} onClose={closeNotification}/>
+        <Notification modifier='auth'/>
       </form>
       <div className='auth__wrapper'>
         <p className='auth__answer'>{params.answer}</p>

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, {useCallback} from "react";
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {

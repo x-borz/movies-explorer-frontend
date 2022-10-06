@@ -1,23 +1,32 @@
 import AbstractMovies from "../AbstractMovies/AbstractMovies";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import mainApi from "../../utils/MainApi";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {filterMovies} from "../../utils/utils";
+import NotificationContext from "../../contexts/NotificationContext";
+import Preloader from "../Preloader/Preloader";
 
 function SavedMovies({savedMovies, setSavedMovies}) {
+  const {showFailedNotification} = useContext(NotificationContext);
+
   const [searchString, setSearchString] = useState('')
   const [isChecked, setIsChecked] = useState(false);
   const [savedMoviesToShow, setSavedMoviesToShow] = useState([]);
   const [hasNoAttempts, setHasNoAttempts] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // обрабатываем клик по кнопке поиска: фильтруем фильмы по строке поиска и чекбоксу
   const handleSearchMovies = (searchString, isChecked) => {
+    setIsLoading(true);
+
     setSearchString(searchString);
     setIsChecked(isChecked);
     setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
     setHasNoAttempts(false);
     localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked}));
+
+    setIsLoading(false);
   }
 
   // обрабатываем клик по кнопке удаления карточки из избранного пользователя
@@ -27,8 +36,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
       setSavedMovies(prevMovies => prevMovies.filter(m => movie._id !== m._id));
       localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked}));
     } catch (err) {
-      //todo: вывод ошибки
-      console.log(err);
+      showFailedNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
     }
   }
 
@@ -62,8 +70,9 @@ function SavedMovies({savedMovies, setSavedMovies}) {
       onSearch={handleSearchMovies}
       isMoreBtnVisible={false}
     >
-      {!hasNoAttempts && hasNoContent && <span className='abstract-movies__not-found'>Ничего не найдено</span>}
-      {!hasNoAttempts && !hasNoContent &&
+      {isLoading && <Preloader/>}
+      {!isLoading && !hasNoAttempts && hasNoContent && <span className='abstract-movies__not-found'>Ничего не найдено</span>}
+      {!isLoading && !hasNoAttempts && !hasNoContent &&
         <MoviesCardList>
           {savedMoviesToShow.map(movie =>
             <MoviesCard key={movie._id} movie={movie} onButtonClick={handleCardButtonClick} isSavedMoviesPage={true}/>

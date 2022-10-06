@@ -124,8 +124,7 @@ function App() {
         const movies = await mainApi.getAllMovies();
         setSavedMovies(movies);
       } catch (err) {
-        //todo: вывод ошибки
-        console.log(err);
+        showFailedNotification('Ошибка загрузки массива избранных фильмов пользователя. ' + err.message);
       }
     }
 

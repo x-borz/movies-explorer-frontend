@@ -5,8 +5,9 @@ import AboutMe from "../AboutMe/AboutMe";
 import Portfolio from "../Portfolio/Portfolio";
 import NavTab from "../NavTab/NavTab";
 import Promo from "../Promo/Promo";
+import Notification from "../Notification/Notification";
 
-function Main(props) {
+function Main() {
   return (
     <main className="main">
       <Promo/>
@@ -15,6 +16,7 @@ function Main(props) {
       <Techs/>
       <AboutMe/>
       <Portfolio/>
+      <Notification modifier='main'/>
     </main>
   );
 }
