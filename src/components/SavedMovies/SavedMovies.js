@@ -5,12 +5,9 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {filterMovies} from "../../utils/utils";
 
-function SavedMovies() {
-  const isSavedMoviesPage = true;
-
+function SavedMovies({savedMovies, setSavedMovies}) {
   const [searchString, setSearchString] = useState('')
   const [isChecked, setIsChecked] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesToShow, setSavedMoviesToShow] = useState([]);
   const [hasNoAttempts, setHasNoAttempts] = useState(true);
 
@@ -35,21 +32,6 @@ function SavedMovies() {
     }
   }
 
-  // подгружаем сохраненные фильмы пользователя один раз примонтировании компонента
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const movies = await mainApi.getAllMovies();
-        setSavedMovies(movies);
-      } catch (err) {
-        //todo: вывод ошибки
-        console.log(err);
-      }
-    }
-
-    fetchData();
-  }, []);
-
   // при изменении массива избранных фильмов готовим новый массив фильмов для отображения на странице
   useEffect(() => {
     try {
@@ -72,7 +54,7 @@ function SavedMovies() {
 
   return (
     <AbstractMovies
-      isSavedMoviesPage={isSavedMoviesPage}
+      isSavedMoviesPage={true}
       searchString={searchString}
       setSearchString={setSearchString}
       isChecked={isChecked}

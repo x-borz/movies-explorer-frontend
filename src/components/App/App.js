@@ -30,6 +30,8 @@ function App() {
     isSuccessful: false
   });
 
+  const [savedMovies, setSavedMovies] = useState([]);
+
   const showFailedNotification = (message) => {
     setNotification({content: message, isSuccessful: false});
   }
@@ -115,6 +117,21 @@ function App() {
     fetchData();
   }, [isLoggedIn]);
 
+  // подгружаем избранные фильмы пользователя один раз при монтировании компонента
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const movies = await mainApi.getAllMovies();
+        setSavedMovies(movies);
+      } catch (err) {
+        //todo: вывод ошибки
+        console.log(err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   if (!isTokenChecked) {
     return (<Loading/>);
   }
@@ -134,8 +151,8 @@ function App() {
               <Login onLogin={handleLogin}/>
             </Route>
             <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} component={Profile}/>
-            <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn} component={Movies}/>
-            <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} component={SavedMovies}/>
+            <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={Movies}/>
+            <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={SavedMovies}/>
             <Route exact path="/">
               <Main/>
             </Route>

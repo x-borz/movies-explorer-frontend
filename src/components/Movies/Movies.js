@@ -9,9 +9,7 @@ import mainApi from "../../utils/MainApi";
 import {moviesApiUrl} from "../../utils/constants";
 import NotificationContext from "../../contexts/NotificationContext";
 
-function Movies() {
-  const isSavedMoviesPage = false;
-
+function Movies({savedMovies, setSavedMovies}) {
   const {showFailedNotification} = useContext(NotificationContext);
 
   const [searchString, setSearchString] = useState('')
@@ -55,7 +53,7 @@ function Movies() {
 
   const handleCardButtonClick = async (movie) => {
     try {
-      await mainApi.createMovie({
+      const newMovie = await mainApi.createMovie({
         country: movie.country,
         director: movie.director,
         duration: movie.duration,
@@ -68,6 +66,7 @@ function Movies() {
         thumbnail: moviesApiUrl + '/' + movie.image.formats.thumbnail.url,
         movieId: movie.id
       });
+      setSavedMovies([...savedMovies, newMovie]);
     } catch (err) {
       //todo вывод ошибки
       console.log(err.message);
@@ -104,7 +103,7 @@ function Movies() {
 
   return (
     <AbstractMovies
-      isSavedMoviesPage={isSavedMoviesPage}
+      isSavedMoviesPage={false}
       searchString={searchString}
       setSearchString={setSearchString}
       isChecked={isChecked}
