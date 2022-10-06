@@ -67,6 +67,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
       setIsChecked={setIsChecked}
       onSearch={handleSearchMovies}
       isMoreBtnVisible={false}
+      hasNoAttempts={hasNoAttempts}
     >
       {isLoading && <Preloader/>}
       {!isLoading && !hasNoAttempts && hasNoContent && <span className='abstract-movies__not-found'>Ничего не найдено</span>}

@@ -134,6 +134,7 @@ function Movies({savedMovies, setSavedMovies}) {
       onSearch={handleSearchMovies}
       isMoreBtnVisible={isMoreBtnVisible}
       onMoreBtnClick={clickMoreButton}
+      hasNoAttempts={hasNoAttempts}
     >
       {isLoading && <Preloader/>}
       {!isLoading && !hasNoAttempts && hasNoContent && <span className='abstract-movies__not-found'>Ничего не найдено</span>}

@@ -4,7 +4,7 @@ import Notification from "../Notification/Notification";
 import {useContext} from "react";
 import NotificationContext from "../../contexts/NotificationContext";
 
-function AbstractMovies({isSavedMoviesPage, searchString, setSearchString, isChecked, setIsChecked, onSearch, isMoreBtnVisible, onMoreBtnClick, children}) {
+function AbstractMovies({isSavedMoviesPage, searchString, setSearchString, isChecked, setIsChecked, onSearch, isMoreBtnVisible, onMoreBtnClick, hasNoAttempts, children}) {
   const {showFailedNotification} = useContext(NotificationContext);
 
   const handleSearch = (searchString, isChecked) => {
@@ -18,7 +18,7 @@ function AbstractMovies({isSavedMoviesPage, searchString, setSearchString, isChe
   return (
     <main className='abstract-movies page__section'>
       <Notification modifier='abstract-movies'/>
-      <SearchForm isSavedMoviesPage={isSavedMoviesPage} onSubmit={handleSearch} searchString={searchString} setSearchString={setSearchString} isChecked={isChecked} setIsChecked={setIsChecked}/>
+      <SearchForm isSavedMoviesPage={isSavedMoviesPage} onSubmit={handleSearch} searchString={searchString} setSearchString={setSearchString} isChecked={isChecked} setIsChecked={setIsChecked} hasNoAttempts={hasNoAttempts}/>
       {children}
       <div className={`abstract-movies__more ${isSavedMoviesPage? 'abstract-movies__more_place_saved-movies' : ''}`}>
         <button className={`abstract-movies__more-btn ${!isMoreBtnVisible ? 'abstract-movies__more-btn_hidden' : ''}`} type='button' onClick={onMoreBtnClick}>Ещё</button>

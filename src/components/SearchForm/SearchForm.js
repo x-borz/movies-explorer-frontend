@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString, isChecked, setIsChecked}) {
+function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString, isChecked, setIsChecked, hasNoAttempts}) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -9,7 +9,9 @@ function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString,
   }
 
   const handleCheckboxClick = () => {
-    onSubmit(searchString, !isChecked);
+    if (!hasNoAttempts) {
+      onSubmit(searchString, !isChecked);
+    }
   }
 
   return (
