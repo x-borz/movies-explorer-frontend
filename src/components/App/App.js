@@ -111,6 +111,7 @@ function App() {
           setCurrentUser(user);
         } catch (err) {
           setCurrentUser({name: 'John Dow', email: 'johndow@johndow.com'});
+          showFailedNotification('Ошибка загрузки имени и email пользователя. ' + err.message);
         }
       }
     }
@@ -120,16 +121,18 @@ function App() {
   // подгружаем избранные фильмы пользователя один раз при монтировании компонента
   useEffect(() => {
     async function fetchData() {
-      try {
-        const movies = await mainApi.getAllMovies();
-        setSavedMovies(movies);
-      } catch (err) {
-        showFailedNotification('Ошибка загрузки массива избранных фильмов пользователя. ' + err.message);
+      if (isLoggedIn) {
+        try {
+          const movies = await mainApi.getAllMovies();
+          setSavedMovies(movies);
+        } catch (err) {
+          showFailedNotification('Ошибка загрузки массива избранных фильмов пользователя. ' + err.message);
+        }
       }
     }
 
     fetchData();
-  }, []);
+  }, [isLoggedIn]);
 
   if (!isTokenChecked) {
     return (<Loading/>);

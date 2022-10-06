@@ -6,6 +6,16 @@ class Auth {
     this._headers = headers;
   }
 
+  async _getJson(response) {
+    const contentType = response.headers.get("Content-Type");
+
+    if (!contentType.includes('application/json')) {
+      throw new Error('Что-то пошло не так');
+    }
+
+    return await response.json();
+  }
+
   async register(name, email, password) {
     const response = await fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
@@ -13,7 +23,7 @@ class Auth {
       body: JSON.stringify({name, email, password})
     });
 
-    const json = await response.json();
+    const json = await this._getJson(response);
 
     switch (response.status) {
       case 200:
@@ -32,7 +42,7 @@ class Auth {
       body: JSON.stringify({email, password})
     });
 
-    const json = await response.json();
+    const json = await this._getJson(response);
 
     switch (response.status) {
       case 200:
@@ -53,7 +63,7 @@ class Auth {
       headers
     });
 
-    const json = await response.json();
+    const json = await this._getJson(response);
 
     switch (response.status) {
       case 200:
