@@ -22,7 +22,7 @@
   padding: 0;
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 364px);
+  grid-template-columns: repeat(auto-fill, 364px);
   justify-items: center;
   column-gap: 24px;
   row-gap: 30px;
@@ -32,7 +32,7 @@
 
 @media screen and (max-width: 900px) {
   .movies-card-list__container {
-    grid-template-columns: repeat(auto-fit, 339px);
+    grid-template-columns: repeat(auto-fill, 339px);
     column-gap: 30px;
     row-gap: 36px;
   }
