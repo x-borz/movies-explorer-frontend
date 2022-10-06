@@ -52,24 +52,32 @@ function Movies({savedMovies, setSavedMovies}) {
   const clickMoreButton = () => setMovieIndex(movieIndex + getIndexStep());
 
   const handleCardButtonClick = async (movie) => {
-    try {
-      const newMovie = await mainApi.createMovie({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: moviesApiUrl + '/' + movie.image.url,
-        trailerLink: movie.trailerLink,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-        thumbnail: moviesApiUrl + '/' + movie.image.formats.thumbnail.url,
-        movieId: movie.id
-      });
-      setSavedMovies([...savedMovies, newMovie]);
-    } catch (err) {
-      //todo вывод ошибки
-      console.log(err.message);
+    if (movie.savedMovie) {  // если фильм лайкнут - удалить из избранного
+      try {
+        await mainApi.deleteMovie(movie.savedMovie._id);
+        setSavedMovies(prevMovies => prevMovies.filter(m => movie.savedMovie._id !== m._id));
+      } catch (err) {
+        showFailedNotification(err.message);
+      }
+    } else {  // если фильм еще не лайкнут - добавить в избраннное
+      try {
+        const newMovie = await mainApi.createMovie({
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: moviesApiUrl + '/' + movie.image.url,
+          trailerLink: movie.trailerLink,
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN,
+          thumbnail: moviesApiUrl + '/' + movie.image.formats.thumbnail.url,
+          movieId: movie.id
+        });
+        setSavedMovies([...savedMovies, newMovie]);
+      } catch (err) {
+        showFailedNotification(err.message);
+      }
     }
   }
 
@@ -83,6 +91,8 @@ function Movies({savedMovies, setSavedMovies}) {
     try {
       const {searchString, isChecked, movies} = JSON.parse(search);
 
+      movies.map(movie => movie.savedMovie = savedMovies.find(m => m.movieId === movie.id));
+
       setSearchString(searchString);
       setIsChecked(isChecked);
       setMovies(movies);
@@ -91,7 +101,7 @@ function Movies({savedMovies, setSavedMovies}) {
       setIsChecked(false);
       setMovies([]);
     }
-  }, []);
+  }, [savedMovies]);
 
   useEffect(() => {
     const nextIndex = movieIndex + getIndexStep();

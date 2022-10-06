@@ -12,7 +12,7 @@ function MoviesCard({movie, onButtonClick, isSavedMoviesPage}) {
       <img className='movies-card__img' src={img} alt={movie.nameRU}/>
       <button type='button' className={`movies-card__button ${
         isSavedMoviesPage ? 'movies-card__button_type_drop' :
-        movie.isLiked ? 'movies-card__button_type_active-save' : 'movies-card__button_type_inactive-save'}`} onClick={() => onButtonClick(movie)}/>
+        movie.savedMovie ? 'movies-card__button_type_active-save' : 'movies-card__button_type_inactive-save'}`} onClick={() => onButtonClick(movie)}/>
     </li>
   );
 }
