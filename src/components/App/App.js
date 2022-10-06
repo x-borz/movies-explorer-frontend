@@ -7,7 +7,7 @@ import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
-import {Route, Switch, useHistory} from "react-router-dom";
+import {Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Header from "../Header/Header";
 import {useEffect, useState} from "react";
 import Menu from "../Menu/Menu";
@@ -20,6 +20,7 @@ import NotificationContext from "../../contexts/NotificationContext";
 
 function App() {
   const history = useHistory();
+  const location = useLocation();
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -156,6 +157,33 @@ function App() {
 
     fetchData();
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    const title = 'Дипломный проект';
+    let postfix = '';
+    switch (location.pathname) {
+      case '/':
+        postfix += ' - Главная страница';
+        break;
+      case '/movies':
+        postfix += ' - Фильмы';
+        break;
+      case '/saved-movies':
+        postfix += ' - Сохранённые фильмы';
+        break;
+      case '/profile':
+        postfix += ' - Профиль';
+        break;
+      case '/signup':
+        postfix += ' - Регистрация';
+        break;
+      case '/signin':
+        postfix += ' - Авторизация';
+        break;
+    }
+
+    document.title = title + postfix;
+  }, [location]);
 
   if (!isTokenChecked) {
     return (<Loading/>);
