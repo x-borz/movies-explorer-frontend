@@ -30,6 +30,11 @@ function Movies({savedMovies, setSavedMovies}) {
     localStorage.setItem('search', JSON.stringify({searchString, isChecked, movies}));
   }
 
+  const saveMovieIndex = (index) => {
+    setMovieIndex(index);
+    localStorage.setItem('movieIndex', index);
+  }
+
   const handleSearchMovies = async (searchString, isChecked) => {
     setHasNoAttempts(false);
     setIsLoading(true);
@@ -46,10 +51,11 @@ function Movies({savedMovies, setSavedMovies}) {
 
     saveData(searchString, isChecked, movies);
     setIsLoading(false);
-    setMovieIndex(0);
+
+    saveMovieIndex(0);
   };
 
-  const clickMoreButton = () => setMovieIndex(movieIndex + getIndexStep());
+  const clickMoreButton = () => saveMovieIndex(movieIndex + getIndexStep());
 
   const handleCardButtonClick = async (movie) => {
     if (movie.savedMovie) {  // если фильм лайкнут - удалить из избранного
@@ -86,7 +92,11 @@ function Movies({savedMovies, setSavedMovies}) {
 
     setHasNoAttempts(!search);
 
-    setMovieIndex(0);
+    try {
+      setMovieIndex(+localStorage.getItem('movieIndex'));
+    } catch (err) {
+      setMovieIndex(0);
+    }
 
     try {
       const {searchString, isChecked, movies} = JSON.parse(search);
