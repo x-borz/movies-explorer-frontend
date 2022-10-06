@@ -203,9 +203,9 @@ function App() {
             <Route exact path="/signin">
               <Login onLogin={handleLogin}/>
             </Route>
-            <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} component={Profile}/>
-            <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={Movies}/>
-            <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={SavedMovies}/>
+            <ProtectedRoute exact path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} component={Profile}/>
+            <ProtectedRoute exact path="/movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={Movies}/>
+            <ProtectedRoute exact path="/saved-movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={SavedMovies}/>
             <Route exact path="/">
               <Main/>
             </Route>
