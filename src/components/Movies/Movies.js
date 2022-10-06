@@ -50,6 +50,7 @@ function Movies({savedMovies, setSavedMovies}) {
     }
 
     movies = filterMovies(movies, searchString, isChecked);
+    movies.map(movie => movie.savedMovie = savedMovies.find(m => m.movieId === movie.id));
 
     saveData(searchString, isChecked, movies);
     setIsLoading(false);

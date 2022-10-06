@@ -21,13 +21,9 @@ function SavedMovies({savedMovies, setSavedMovies}) {
   // обрабатываем клик по кнопке поиска: фильтруем фильмы по строке поиска и чекбоксу
   const handleSearchMovies = (searchString, isChecked) => {
     setIsLoading(true);
-
-    setSearchString(searchString);
-    setIsChecked(isChecked);
     setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
     setHasNoAttempts(false);
     localStorage.setItem(localStorageSearchSaved, JSON.stringify({searchString, isChecked}));
-
     setIsLoading(false);
   }
 
