@@ -8,9 +8,11 @@ import {filterMovies, getIndexStep} from "../../utils/utils";
 import mainApi from "../../utils/MainApi";
 import {moviesApiUrl} from "../../utils/constants";
 import NotificationContext from "../../contexts/NotificationContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Movies({savedMovies, setSavedMovies}) {
   const {showFailedNotification} = useContext(NotificationContext);
+  const {localStorageSearch, localStorageMovieIndex} = useContext(CurrentUserContext);
 
   const [searchString, setSearchString] = useState('')
   const [isChecked, setIsChecked] = useState(false);
@@ -27,12 +29,12 @@ function Movies({savedMovies, setSavedMovies}) {
     setIsChecked(isChecked);
     setMovies(movies);
 
-    localStorage.setItem('search', JSON.stringify({searchString, isChecked, movies}));
+    localStorage.setItem(localStorageSearch, JSON.stringify({searchString, isChecked, movies}));
   }
 
   const saveMovieIndex = (index) => {
     setMovieIndex(index);
-    localStorage.setItem('movieIndex', index);
+    localStorage.setItem(localStorageMovieIndex, index);
   }
 
   const handleSearchMovies = async (searchString, isChecked) => {
@@ -88,12 +90,12 @@ function Movies({savedMovies, setSavedMovies}) {
   }
 
   useEffect(() => {
-    const search = localStorage.getItem('search')
+    const search = localStorage.getItem(localStorageSearch)
 
     setHasNoAttempts(!search);
 
     try {
-      setMovieIndex(+localStorage.getItem('movieIndex'));
+      setMovieIndex(+localStorage.getItem(localStorageMovieIndex));
     } catch (err) {
       setMovieIndex(0);
     }

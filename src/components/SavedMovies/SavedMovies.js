@@ -6,9 +6,11 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import {filterMovies} from "../../utils/utils";
 import NotificationContext from "../../contexts/NotificationContext";
 import Preloader from "../Preloader/Preloader";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function SavedMovies({savedMovies, setSavedMovies}) {
   const {showFailedNotification} = useContext(NotificationContext);
+  const {localStorageSearchSaved} = useContext(CurrentUserContext);
 
   const [searchString, setSearchString] = useState('')
   const [isChecked, setIsChecked] = useState(false);
@@ -24,7 +26,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
     setIsChecked(isChecked);
     setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
     setHasNoAttempts(false);
-    localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked}));
+    localStorage.setItem(localStorageSearchSaved, JSON.stringify({searchString, isChecked}));
 
     setIsLoading(false);
   }
@@ -34,7 +36,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
     try {
       await mainApi.deleteMovie(movie._id);
       setSavedMovies(prevMovies => prevMovies.filter(m => movie._id !== m._id));
-      localStorage.setItem('searchSaved', JSON.stringify({searchString, isChecked}));
+      localStorage.setItem(localStorageSearchSaved, JSON.stringify({searchString, isChecked}));
     } catch (err) {
       showFailedNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
     }
@@ -43,7 +45,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
   // при изменении массива избранных фильмов готовим новый массив фильмов для отображения на странице
   useEffect(() => {
     try {
-      const search = localStorage.getItem('searchSaved');
+      const search = localStorage.getItem(localStorageSearchSaved);
       setHasNoAttempts(!search);
 
       const {searchString, isChecked} = JSON.parse(search);

@@ -32,6 +32,10 @@ function App() {
 
   const [savedMovies, setSavedMovies] = useState([]);
 
+  const [localStorageSearch, setLocalStorageSearch] = useState('');
+  const [localStorageMovieIndex, setLocalStorageMovieIndex] = useState('');
+  const [localStorageSearchSaved, setLocalStorageSearchSaved] = useState('');
+
   const showFailedNotification = (message) => {
     setNotification({content: message, isSuccessful: false});
   }
@@ -75,7 +79,23 @@ function App() {
   const handleUserUpdate = async ({name, email}) => {
     try {
       const user = await mainApi.updateUser(name, email);
+
+      if (currentUser.email !== user.email) {
+        const newLocalStorageSearch = `${user.email}-search`;
+        const newLocalStorageMovieIndex = `${user.email}-movieIndex`;
+        const newLocalStorageSearchSaved = `${user.email}-searchSaved`;
+
+        localStorage.setItem(newLocalStorageSearch, localStorage.getItem(localStorageSearch));
+        localStorage.setItem(newLocalStorageMovieIndex, localStorage.getItem(localStorageMovieIndex));
+        localStorage.setItem(newLocalStorageSearchSaved, localStorage.getItem(localStorageSearchSaved));
+
+        setLocalStorageSearch(newLocalStorageSearch);
+        setLocalStorageMovieIndex(newLocalStorageMovieIndex);
+        setLocalStorageSearchSaved(newLocalStorageSearchSaved);
+      }
+
       setCurrentUser(user);
+
       showSuccessfulNotification("Данные пользователя успешно обновлены");
     } catch (err) {
       showFailedNotification(err.message);
@@ -109,6 +129,9 @@ function App() {
         try {
           const user = await mainApi.getUser();
           setCurrentUser(user);
+          setLocalStorageSearch(`${user.email}-search`);
+          setLocalStorageMovieIndex(`${user.email}-movieIndex`);
+          setLocalStorageSearchSaved(`${user.email}-searchSaved`);
         } catch (err) {
           setCurrentUser({name: 'John Dow', email: 'johndow@johndow.com'});
           showFailedNotification('Ошибка загрузки имени и email пользователя. ' + err.message);
@@ -139,7 +162,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{currentUser, localStorageSearch, localStorageMovieIndex, localStorageSearchSaved}}>
       <NotificationContext.Provider value={{notification, showFailedNotification, showSuccessfulNotification, closeNotification}}>
         <div className="page">
           <Route exact path="/(movies|saved-movies|profile|)">

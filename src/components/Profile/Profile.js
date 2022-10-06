@@ -7,7 +7,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Notification from "../Notification/Notification";
 
 function Profile({onSignOut, onUserUpdate}) {
-  const {name, email} = useContext(CurrentUserContext);
+  const {name, email} = useContext(CurrentUserContext).currentUser;
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
   const handleSubmit = evt => {

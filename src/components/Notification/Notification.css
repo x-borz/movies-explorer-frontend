@@ -15,11 +15,15 @@
 .notification_place_auth {
   position: absolute;
   bottom: 55px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .notification_place_profile {
   position: absolute;
   bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .notification_place_abstract-movies,
