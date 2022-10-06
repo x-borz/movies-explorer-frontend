@@ -7,12 +7,12 @@ import NotificationContext from "../../contexts/NotificationContext";
 function AbstractMovies({isSavedMoviesPage, searchString, setSearchString, isChecked, setIsChecked, onSearch, isMoreBtnVisible, onMoreBtnClick, hasNoAttempts, children}) {
   const {showFailedNotification} = useContext(NotificationContext);
 
-  const handleSearch = (searchString, isChecked) => {
+  const handleSearch = (searchString, isChecked, submitFromCheckbox) => {
     if (!searchString) {
       showFailedNotification('Нужно ввести ключевое слово');
       return;
     }
-    onSearch(searchString, isChecked)
+    onSearch(searchString, isChecked, submitFromCheckbox)
   }
 
   return (

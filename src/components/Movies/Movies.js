@@ -24,38 +24,64 @@ function Movies({savedMovies, setSavedMovies}) {
   const [moviesToShow, setMoviesToShow] = useState([]);
   const [isMoreBtnVisible, setIsMoreBtnVisible] = useState(false);
 
-  const saveData = (searchString, isChecked, movies) => {
-    setSearchString(searchString);
-    setIsChecked(isChecked);
-    setMovies(movies);
-
-    localStorage.setItem(localStorageSearch, JSON.stringify({searchString, isChecked, movies}));
-  }
+  const localStorageAllMovies = 'all-movies';
 
   const saveMovieIndex = (index) => {
     setMovieIndex(index);
     localStorage.setItem(localStorageMovieIndex, index);
   }
 
-  const handleSearchMovies = async (searchString, isChecked) => {
-    setHasNoAttempts(false);
-    setIsLoading(true);
-
-    let movies = [];
+  const getAllMovies = async () => {
+    let allMovies = null;
 
     try {
-      movies = await moviesApi.getMovies();
+      allMovies = JSON.parse(localStorage.getItem(localStorageAllMovies));
     } catch (err) {
-      showFailedNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
     }
 
-    movies = filterMovies(movies, searchString, isChecked);
+    // если фильмы не были ранее сохранены в локальное хранилище или не удалось разобрать даннные, качаем фильмы из внешнего api
+    if (!allMovies) {
+      try {
+        allMovies = await moviesApi.getMovies();
+        localStorage.setItem(localStorageAllMovies, JSON.stringify(allMovies));
+      } catch (err) {
+        showFailedNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        throw Error();
+      }
+    }
+
+    return allMovies;
+  }
+
+  const handleSearchMovies = async (searchString, isChecked, submitFromCheckbox) => {
+    setIsLoading(true);
+
+    let allMovies;
+
+    try {
+      allMovies = await getAllMovies();
+    } catch (err) {
+      setIsLoading(false);
+      return;
+    }
+
+    setHasNoAttempts(false);
+
+    // фильтруем фильмы в соотвествии с введенными критериями
+    let movies = filterMovies(allMovies, searchString, isChecked);
+
+    // пробегаем по всем фильмам, связывая их с фильмами из избранного
     movies.map(movie => movie.savedMovie = savedMovies.find(m => m.movieId === movie.id));
 
-    saveData(searchString, isChecked, movies);
+    setMovies(movies);
+
+    localStorage.setItem(localStorageSearch, JSON.stringify({searchString, isChecked}));
+
     setIsLoading(false);
 
-    saveMovieIndex(0);
+    if (!submitFromCheckbox) {
+      saveMovieIndex(0);
+    }
   };
 
   const clickMoreButton = () => saveMovieIndex(movieIndex + getIndexStep());
@@ -91,28 +117,29 @@ function Movies({savedMovies, setSavedMovies}) {
   }
 
   useEffect(() => {
-    const search = localStorage.getItem(localStorageSearch)
-
-    setHasNoAttempts(!search);
-
     try {
-      setMovieIndex(+localStorage.getItem(localStorageMovieIndex));
-    } catch (err) {
-      setMovieIndex(0);
-    }
+      const allMovies = JSON.parse(localStorage.getItem(localStorageAllMovies));
+      const {searchString, isChecked} = JSON.parse(localStorage.getItem(localStorageSearch));
 
-    try {
-      const {searchString, isChecked, movies} = JSON.parse(search);
-
+      let movies = filterMovies(allMovies, searchString, isChecked);
       movies.map(movie => movie.savedMovie = savedMovies.find(m => m.movieId === movie.id));
 
       setSearchString(searchString);
       setIsChecked(isChecked);
       setMovies(movies);
+
+      setHasNoAttempts(false);
+
+      try {
+        setMovieIndex(+localStorage.getItem(localStorageMovieIndex));
+      } catch (err) {
+        setMovieIndex(0);
+      }
     } catch (err) {
       setSearchString('');
       setIsChecked(false);
       setMovies([]);
+      setMovieIndex(0);
     }
   }, [savedMovies]);
 

@@ -5,12 +5,12 @@ function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString,
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit(searchString, isChecked);
+    onSubmit(searchString, isChecked, false);
   }
 
   const handleCheckboxClick = () => {
     if (!hasNoAttempts) {
-      onSubmit(searchString, !isChecked);
+      onSubmit(searchString, !isChecked, true);
     }
   }
 
