@@ -21,8 +21,8 @@ function SavedMovies({savedMovies, setSavedMovies}) {
   // обрабатываем клик по кнопке поиска: фильтруем фильмы по строке поиска и чекбоксу
   const handleSearchMovies = (searchString, isChecked) => {
     setIsLoading(true);
-    setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
     setHasNoAttempts(false);
+    setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
     localStorage.setItem(localStorageSearchSaved, JSON.stringify({searchString, isChecked}));
     setIsLoading(false);
   }
@@ -40,10 +40,10 @@ function SavedMovies({savedMovies, setSavedMovies}) {
 
   // при изменении массива избранных фильмов готовим новый массив фильмов для отображения на странице
   useEffect(() => {
-    try {
-      const search = localStorage.getItem(localStorageSearchSaved);
-      setHasNoAttempts(!search);
+    const search = localStorage.getItem(localStorageSearchSaved);
+    setHasNoAttempts(!search);
 
+    try {
       const {searchString, isChecked} = JSON.parse(search);
       setSearchString(searchString);
       setIsChecked(isChecked);
@@ -53,7 +53,6 @@ function SavedMovies({savedMovies, setSavedMovies}) {
       setIsChecked(false);
       setSavedMoviesToShow([]);
     }
-
   }, [savedMovies]);
 
   const hasNoContent = savedMoviesToShow.length === 0;
