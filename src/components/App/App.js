@@ -35,7 +35,6 @@ function App() {
 
   const [localStorageSearch, setLocalStorageSearch] = useState('');
   const [localStorageMovieIndex, setLocalStorageMovieIndex] = useState('');
-  const [localStorageSearchSaved, setLocalStorageSearchSaved] = useState('');
 
   const showFailedNotification = (message) => {
     setNotification({content: message, isSuccessful: false});
@@ -84,15 +83,12 @@ function App() {
       if (currentUser.email !== user.email) {
         const newLocalStorageSearch = `${user.email}-search`;
         const newLocalStorageMovieIndex = `${user.email}-movieIndex`;
-        const newLocalStorageSearchSaved = `${user.email}-searchSaved`;
 
         localStorage.setItem(newLocalStorageSearch, localStorage.getItem(localStorageSearch));
         localStorage.setItem(newLocalStorageMovieIndex, localStorage.getItem(localStorageMovieIndex));
-        localStorage.setItem(newLocalStorageSearchSaved, localStorage.getItem(localStorageSearchSaved));
 
         setLocalStorageSearch(newLocalStorageSearch);
         setLocalStorageMovieIndex(newLocalStorageMovieIndex);
-        setLocalStorageSearchSaved(newLocalStorageSearchSaved);
       }
 
       setCurrentUser(user);
@@ -132,7 +128,6 @@ function App() {
           setCurrentUser(user);
           setLocalStorageSearch(`${user.email}-search`);
           setLocalStorageMovieIndex(`${user.email}-movieIndex`);
-          setLocalStorageSearchSaved(`${user.email}-searchSaved`);
         } catch (err) {
           setCurrentUser({name: 'John Dow', email: 'johndow@johndow.com'});
           showFailedNotification('Ошибка загрузки имени и email пользователя. ' + err.message);
@@ -190,7 +185,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={{currentUser, localStorageSearch, localStorageMovieIndex, localStorageSearchSaved}}>
+    <CurrentUserContext.Provider value={{currentUser, localStorageSearch, localStorageMovieIndex}}>
       <NotificationContext.Provider value={{notification, showFailedNotification, showSuccessfulNotification, closeNotification}}>
         <div className="page">
           <Route exact path="/(movies|saved-movies|profile|)">

@@ -1,15 +1,22 @@
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import {useContext} from "react";
+import NotificationContext from "../../contexts/NotificationContext";
 
-function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString, isChecked, setIsChecked, hasNoAttempts}) {
+function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString, isChecked, setIsChecked, hasNoContent}) {
+  const {showFailedNotification} = useContext(NotificationContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    if (!searchString) {
+      showFailedNotification('Нужно ввести ключевое слово');
+      return;
+    }
     onSubmit(searchString, isChecked, false);
   }
 
   const handleCheckboxClick = () => {
-    if (!hasNoAttempts) {
+    if (!hasNoContent) {
       onSubmit(searchString, !isChecked, true);
     }
   }
