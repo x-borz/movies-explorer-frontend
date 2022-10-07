@@ -7,7 +7,7 @@ import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
-import {Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Header from "../Header/Header";
 import {useEffect, useState} from "react";
 import Menu from "../Menu/Menu";
@@ -193,10 +193,16 @@ function App() {
           </Route>
           <Switch>
             <Route exact path="/signup" >
-              <Register onRegister={handleRegister}/>
+              {isLoggedIn
+                ? <Redirect to="/"/>
+                : <Register onRegister={handleRegister}/>
+              };
             </Route>
             <Route exact path="/signin">
-              <Login onLogin={handleLogin}/>
+              {isLoggedIn
+                ? <Redirect to="/"/>
+                : <Login onLogin={handleLogin}/>
+              }
             </Route>
             <ProtectedRoute exact path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} component={Profile}/>
             <ProtectedRoute exact path="/movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={Movies}/>
