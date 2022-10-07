@@ -37,6 +37,8 @@ function App() {
   const [localStorageSearch, setLocalStorageSearch] = useState('');
   const [localStorageMovieIndex, setLocalStorageMovieIndex] = useState('');
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const showFailedNotification = (message) => {
     setNotification({content: message, isSuccessful: false});
   }
@@ -59,26 +61,34 @@ function App() {
 
   const handleRegister = async ({name, email, password}) => {
     try {
+      setIsLoading(true);
       await auth.register(name, email, password);
       await handleLogin({email, password});
     } catch (err) {
       showFailedNotification(err.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   const handleLogin = async ({email, password}) => {
     try {
+      setIsLoading(true);
       const token = await auth.authorize(email, password);
       localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
       setIsLoggedIn(true);
       history.push("/movies");
     } catch (err) {
       showFailedNotification(err.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   const handleUserUpdate = async ({name, email}) => {
     try {
+      setIsLoading(true);
+
       const user = await mainApi.updateUser(name, email);
 
       if (currentUser.email !== user.email) {
@@ -97,6 +107,8 @@ function App() {
       showSuccessfulNotification("Данные пользователя успешно обновлены");
     } catch (err) {
       showFailedNotification(err.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -201,16 +213,16 @@ function App() {
             <Route exact path="/signup" >
               {isLoggedIn
                 ? <Redirect to="/"/>
-                : <Register onRegister={handleRegister}/>
+                : <Register onRegister={handleRegister} isLoading={isLoading}/>
               };
             </Route>
             <Route exact path="/signin">
               {isLoggedIn
                 ? <Redirect to="/"/>
-                : <Login onLogin={handleLogin}/>
+                : <Login onLogin={handleLogin} isLoading={isLoading}/>
               }
             </Route>
-            <ProtectedRoute exact path="/profile" isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} component={Profile}/>
+            <ProtectedRoute exact path="/profile" isLoggedIn={isLoggedIn} isLoading={isLoading} onSignOut={handleSignOut} onUserUpdate={handleUserUpdate} component={Profile}/>
             <ProtectedRoute exact path="/movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={Movies}/>
             <ProtectedRoute exact path="/saved-movies" isLoggedIn={isLoggedIn} savedMovies={savedMovies} setSavedMovies={setSavedMovies} component={SavedMovies}/>
             <Route exact path="/">
