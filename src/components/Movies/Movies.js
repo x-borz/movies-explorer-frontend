@@ -31,6 +31,16 @@ function Movies({savedMovies, setSavedMovies}) {
     localStorage.setItem(localStorageMovieIndex, index);
   }
 
+  const filterMoviesAndAssignWithSavedMovies = (allMovies, searchString, isChecked) => {
+    // фильтруем фильмы в соотвествии с введенными критериями
+    let movies = filterMovies(allMovies, searchString, isChecked);
+
+    // пробегаем по всем фильмам, связывая их с фильмами из избранного
+    movies.map(movie => movie.savedMovie = savedMovies.find(m => m.movieId === movie.id));
+
+    return movies;
+  }
+
   const getAllMovies = async () => {
     let allMovies = null;
 
@@ -67,11 +77,7 @@ function Movies({savedMovies, setSavedMovies}) {
 
     setHasNoAttempts(false);
 
-    // фильтруем фильмы в соотвествии с введенными критериями
-    let movies = filterMovies(allMovies, searchString, isChecked);
-
-    // пробегаем по всем фильмам, связывая их с фильмами из избранного
-    movies.map(movie => movie.savedMovie = savedMovies.find(m => m.movieId === movie.id));
+    const movies = filterMoviesAndAssignWithSavedMovies(allMovies, searchString, isChecked);
 
     setMovies(movies);
 
@@ -86,7 +92,7 @@ function Movies({savedMovies, setSavedMovies}) {
 
   const clickMoreButton = () => saveMovieIndex(movieIndex + getIndexStep());
 
-  const handleCardButtonClick = async (movie) => {
+  const handleMoviesCardButtonClick = async (movie) => {
     if (movie.savedMovie) {  // если фильм лайкнут - удалить из избранного
       try {
         await mainApi.deleteMovie(movie.savedMovie._id);
@@ -121,8 +127,7 @@ function Movies({savedMovies, setSavedMovies}) {
       const allMovies = JSON.parse(localStorage.getItem(localStorageAllMovies));
       const {searchString, isChecked} = JSON.parse(localStorage.getItem(localStorageSearch));
 
-      let movies = filterMovies(allMovies, searchString, isChecked);
-      movies.map(movie => movie.savedMovie = savedMovies.find(m => m.movieId === movie.id));
+      const movies = filterMoviesAndAssignWithSavedMovies(allMovies, searchString, isChecked);
 
       setSearchString(searchString);
       setIsChecked(isChecked);
@@ -168,7 +173,7 @@ function Movies({savedMovies, setSavedMovies}) {
       {!isLoading && !hasNoAttempts && !hasNoContent &&
         <MoviesCardList>
           {moviesToShow.map(movie =>
-            <MoviesCard key={movie.id} movie={movie} onButtonClick={handleCardButtonClick} isSavedMoviesPage={false}/>
+            <MoviesCard key={movie.id} movie={movie} onButtonClick={handleMoviesCardButtonClick} isSavedMoviesPage={false}/>
           )}
         </MoviesCardList>
       }

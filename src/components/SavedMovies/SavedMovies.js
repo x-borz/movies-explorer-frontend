@@ -28,7 +28,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
   }
 
   // обрабатываем клик по кнопке удаления карточки из избранного пользователя
-  const handleCardButtonClick = async (movie) => {
+  const handleMoviesCardButtonClick = async (movie) => {
     try {
       await mainApi.deleteMovie(movie._id);
       setSavedMovies(prevMovies => prevMovies.filter(m => movie._id !== m._id));
@@ -73,7 +73,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
       {!isLoading && !hasNoAttempts && !hasNoContent &&
         <MoviesCardList>
           {savedMoviesToShow.map(movie =>
-            <MoviesCard key={movie._id} movie={movie} onButtonClick={handleCardButtonClick} isSavedMoviesPage={true}/>
+            <MoviesCard key={movie._id} movie={movie} onButtonClick={handleMoviesCardButtonClick} isSavedMoviesPage={true}/>
           )}
         </MoviesCardList>
       }
