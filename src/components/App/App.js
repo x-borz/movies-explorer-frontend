@@ -106,6 +106,7 @@ function App() {
     localStorage.removeItem(localStorageSearch);
     localStorage.removeItem(localStorageMovieIndex);
     setCurrentUser(null);
+    setSavedMovies([]);
     setIsLoggedIn(false);
   }
 

@@ -10,7 +10,7 @@ import {LOCAL_STORAGE_ALL_MOVIES, MOVIES_API_URL} from "../../utils/constants";
 import NotificationContext from "../../contexts/NotificationContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Movies({savedMovies, setSavedMovies, isLoggedIn}) {
+function Movies({savedMovies, setSavedMovies}) {
   const {showFailedNotification} = useContext(NotificationContext);
   const {localStorageSearch, localStorageMovieIndex} = useContext(CurrentUserContext);
 
@@ -151,16 +151,6 @@ function Movies({savedMovies, setSavedMovies, isLoggedIn}) {
     setIsMoreBtnVisible(nextIndex < movies.length);
     setMoviesToShow(movies.slice(0, nextIndex));
   }, [movieIndex, movies]);
-
-  // сбрасываем стейты при разлогине
-  useEffect(() => {
-    if (!isLoggedIn) {
-      setSearchString('');
-      setMovies([]);
-      setMovieIndex(0);
-      setMoviesToShow([]);
-    }
-  }, [isLoggedIn])
 
   const hasNoContent = movies.length === 0;
 
