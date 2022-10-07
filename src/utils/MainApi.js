@@ -1,4 +1,4 @@
-import {HEADERS, MAIN_API_URL} from "./constants";
+import {HEADERS, LOCAL_STORAGE_TOKEN, MAIN_API_URL} from "./constants";
 
 class MainApi {
   constructor(baseUrl, headers) {
@@ -18,7 +18,7 @@ class MainApi {
 
   async getUser() {
     const headers = Object.assign({}, this._headers);
-    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+    headers["Authorization"] = `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN)}`;
 
     const response = await fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
@@ -37,7 +37,7 @@ class MainApi {
 
   async updateUser(name, email) {
     const headers = Object.assign({}, this._headers);
-    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+    headers["Authorization"] = `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN)}`;
 
     const response = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
@@ -62,7 +62,7 @@ class MainApi {
 
   async createMovie({country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId}) {
     const headers = Object.assign({}, this._headers);
-    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+    headers["Authorization"] = `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN)}`;
 
     const response = await fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
@@ -86,7 +86,7 @@ class MainApi {
 
   async deleteMovie(movieId) {
     const headers = Object.assign({}, this._headers);
-    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+    headers["Authorization"] = `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN)}`;
 
     const response = await fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: 'DELETE',
@@ -110,7 +110,7 @@ class MainApi {
 
   async getAllMovies() {
     const headers = Object.assign({}, this._headers);
-    headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
+    headers["Authorization"] = `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN)}`;
 
     const response = await fetch(`${this._baseUrl}/movies`, {
       method: 'GET',

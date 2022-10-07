@@ -1,3 +1,11 @@
+import {
+  FIVE_MOVIES_BY_CLICK, MINUTES_IN_HOUR,
+  RESOLUTION_1280_PX, RESOLUTION_768_PX,
+  SHORT_METER_MAX_LIMIT,
+  THREE_MOVIES_BY_CLICK,
+  TWO_MOVIES_BY_CLICK
+} from "./constants";
+
 export const handleNameInput = evt => {
   const target = evt.target;
   if (target.validity.patternMismatch) {
@@ -19,8 +27,8 @@ export const handleEmailInput = evt => {
 export const formatDuration = (durationInMinutes) => {
   let result = '';
 
-  const hours = Math.floor(durationInMinutes / 60);
-  const minutes = durationInMinutes % 60;
+  const hours = Math.floor(durationInMinutes / MINUTES_IN_HOUR);
+  const minutes = durationInMinutes % MINUTES_IN_HOUR;
 
   if (hours > 0) {
      result += hours + 'ч ';
@@ -32,19 +40,19 @@ export const formatDuration = (durationInMinutes) => {
 }
 
 export const getIndexStep = () => {
-  if (window.innerWidth >= 1280) {
-    return 3;
-  } else if (window.innerWidth >= 768) {
-    return 2;
+  if (window.innerWidth >= RESOLUTION_1280_PX) {
+    return THREE_MOVIES_BY_CLICK;
+  } else if (window.innerWidth >= RESOLUTION_768_PX) {
+    return TWO_MOVIES_BY_CLICK;
   } else {
-    return 5;
+    return FIVE_MOVIES_BY_CLICK;
   }
 }
 
 export const filterMovies = (movies, searchString, isChecked) => {
   const search = searchString.toLowerCase();
   return movies.filter(movie => {
-    return (isChecked ? movie.duration <= 40 : true) && (
+    return (isChecked ? movie.duration <= SHORT_METER_MAX_LIMIT : true) && (
         movie.nameRU.toLowerCase().includes(search) ||
         movie.nameEN.toLowerCase().includes(search) ||
         movie.country.toLowerCase().includes(search) ||

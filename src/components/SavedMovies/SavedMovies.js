@@ -6,7 +6,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import {filterMovies} from "../../utils/utils";
 import NotificationContext from "../../contexts/NotificationContext";
 
-function SavedMovies({savedMovies, setSavedMovies}) {
+function SavedMovies({savedMovies, setSavedMovies, isLoggedIn}) {
   const {showFailedNotification} = useContext(NotificationContext);
 
   const [searchString, setSearchString] = useState('')
@@ -31,6 +31,15 @@ function SavedMovies({savedMovies, setSavedMovies}) {
   useEffect(() => {
     setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
   }, [savedMovies]);
+
+  // сбрасываем стейты при разлогине
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setSearchString('');
+      setSavedMovies([]);
+      setSavedMoviesToShow([]);
+    }
+  }, [isLoggedIn])
 
   const hasNoContent = savedMovies.length === 0;
 

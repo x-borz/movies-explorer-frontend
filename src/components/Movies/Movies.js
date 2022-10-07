@@ -6,11 +6,11 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {filterMovies, getIndexStep} from "../../utils/utils";
 import mainApi from "../../utils/MainApi";
-import {MOVIES_API_URL} from "../../utils/constants";
+import {LOCAL_STORAGE_ALL_MOVIES, MOVIES_API_URL} from "../../utils/constants";
 import NotificationContext from "../../contexts/NotificationContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Movies({savedMovies, setSavedMovies}) {
+function Movies({savedMovies, setSavedMovies, isLoggedIn}) {
   const {showFailedNotification} = useContext(NotificationContext);
   const {localStorageSearch, localStorageMovieIndex} = useContext(CurrentUserContext);
 
@@ -23,8 +23,6 @@ function Movies({savedMovies, setSavedMovies}) {
   const [movieIndex, setMovieIndex] = useState(-1);
   const [moviesToShow, setMoviesToShow] = useState([]);
   const [isMoreBtnVisible, setIsMoreBtnVisible] = useState(false);
-
-  const localStorageAllMovies = 'all-movies';
 
   const saveMovieIndex = (index) => {
     setMovieIndex(index);
@@ -45,7 +43,7 @@ function Movies({savedMovies, setSavedMovies}) {
     let allMovies = null;
 
     try {
-      allMovies = JSON.parse(localStorage.getItem(localStorageAllMovies));
+      allMovies = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ALL_MOVIES));
     } catch (err) {
     }
 
@@ -53,7 +51,7 @@ function Movies({savedMovies, setSavedMovies}) {
     if (!allMovies) {
       try {
         allMovies = await moviesApi.getMovies();
-        localStorage.setItem(localStorageAllMovies, JSON.stringify(allMovies));
+        localStorage.setItem(LOCAL_STORAGE_ALL_MOVIES, JSON.stringify(allMovies));
       } catch (err) {
         showFailedNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         throw Error();
@@ -124,7 +122,7 @@ function Movies({savedMovies, setSavedMovies}) {
 
   useEffect(() => {
     try {
-      const allMovies = JSON.parse(localStorage.getItem(localStorageAllMovies));
+      const allMovies = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ALL_MOVIES));
       const {searchString, isChecked} = JSON.parse(localStorage.getItem(localStorageSearch));
 
       const movies = filterMoviesAndAssignWithSavedMovies(allMovies, searchString, isChecked);
@@ -153,6 +151,16 @@ function Movies({savedMovies, setSavedMovies}) {
     setIsMoreBtnVisible(nextIndex < movies.length);
     setMoviesToShow(movies.slice(0, nextIndex));
   }, [movieIndex, movies]);
+
+  // сбрасываем стейты при разлогине
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setSearchString('');
+      setMovies([]);
+      setMovieIndex(0);
+      setMoviesToShow([]);
+    }
+  }, [isLoggedIn])
 
   const hasNoContent = movies.length === 0;
 

@@ -17,6 +17,7 @@ import mainApi from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Loading from "../Loading/Loading";
 import NotificationContext from "../../contexts/NotificationContext";
+import {LOCAL_STORAGE_ALL_MOVIES, LOCAL_STORAGE_TOKEN} from "../../utils/constants";
 
 function App() {
   const history = useHistory();
@@ -68,7 +69,7 @@ function App() {
   const handleLogin = async ({email, password}) => {
     try {
       const token = await auth.authorize(email, password);
-      localStorage.setItem('token', token);
+      localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
       setIsLoggedIn(true);
       history.push("/movies");
     } catch (err) {
@@ -100,7 +101,11 @@ function App() {
   }
 
   const handleSignOut = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem(LOCAL_STORAGE_TOKEN);
+    localStorage.removeItem(LOCAL_STORAGE_ALL_MOVIES);
+    localStorage.removeItem(localStorageSearch);
+    localStorage.removeItem(localStorageMovieIndex);
+    setCurrentUser(null);
     setIsLoggedIn(false);
   }
 
@@ -117,7 +122,7 @@ function App() {
       }
     }
 
-    fetchData(localStorage.getItem('token'));
+    fetchData(localStorage.getItem(LOCAL_STORAGE_TOKEN));
   }, []);
 
   useEffect(() => {
