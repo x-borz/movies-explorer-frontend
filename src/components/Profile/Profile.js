@@ -1,48 +1,50 @@
 import './Profile.css';
 import {Link} from "react-router-dom";
-import Popup from "../Popup/Popup";
-import {useEffect, useState} from "react";
+import {useFormWithValidation} from "../Forms/Forms";
+import {handleEmailInput, handleNameInput} from "../../utils/utils";
+import {useContext, useEffect} from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import Notification from "../Notification/Notification";
 
-function Profile(props) {
-  const name = 'Ренат';  //на следующем этапе буду брать из контекста
-  const email = 'x-borz@yandex.ru';  //на следующем этапе буду брать из контекста
-  const [isPopupOpened, setIsPopupOpened] = useState(false);
+function Profile({isLoading, onSignOut, onUserUpdate}) {
+  const {name, email} = useContext(CurrentUserContext).currentUser;
+  const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
-  const closePopup = () => {
-    setIsPopupOpened(false);
-  }
-
-  const submit = () => {
-    alert('Сохранение');
+  const handleSubmit = evt => {
+    evt.preventDefault();
+    onUserUpdate(values);
   }
 
   useEffect(() => {
-    const handleEscClose = evt => {
-      if (evt.key === 'Escape') closePopup();
-    }
-    if (isPopupOpened) {
-      document.addEventListener("keydown", handleEscClose);
-      return () => document.removeEventListener("keydown", handleEscClose);
-    }
-  }, [isPopupOpened]);
+    resetForm({name, email}, {}, false);
+  }, [name, email]);
 
+  const isFormValid = isValid && (values.name !== name || values.email !== email);
 
   return (
     <section className='profile page__section'>
       <h1 className='profile__greeting'>Привет, {name}!</h1>
-      <ul className='profile__attributes'>
-        <li className='profile__attribute'>
-          <h2 className='profile__attr'>Имя</h2>
-          <p className='profile__attr'>{name}</p>
-        </li>
-        <li className='profile__attribute'>
-          <h2 className='profile__attr'>E-mail</h2>
-          <p className='profile__attr'>{email}</p>
-        </li>
-      </ul>
-      <button className='profile__edit-btn' type='button' onClick={() => setIsPopupOpened(true)}>Редактировать</button>
-      <Link className='profile__link' to='/'>Выйти из аккаунта</Link>
-      <Popup isPopupOpened={isPopupOpened} onClose={closePopup} onSubmit={submit}/>
+      <form className='profile__form' onSubmit={handleSubmit}>
+
+        <div className='input-group'>
+          <label className='profile__label' htmlFor='name'>Имя</label>
+          <input className={`profile__input ${errors.name ? 'profile__input_errored' : ''}`} id='name' name='name' type='text' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' defaultValue={values.name} onChange={handleChange} onInput={handleNameInput} disabled={isLoading}/>
+          <span className='profile__error'>{errors.name || ''}</span>
+        </div>
+
+        <div className='input-group'>
+          <label className='profile__label' htmlFor='email'>E-mail</label>
+          <input className={`profile__input profile__input_unbordered ${errors.email ? 'profile__input_errored' : ''}`} id='email' name='email' type='text' pattern='^[\w!#$%&’*+/=?`{|}~^-]+(?:\.[\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$' required defaultValue={values.email} onChange={handleChange} onInput={handleEmailInput} disabled={isLoading}/>
+          <span className='profile__error'>{errors.email || ''}</span>
+        </div>
+
+        <button className={`profile__edit-btn ${!isFormValid || isLoading ? 'profile__edit-btn_disabled' : ''}`} type='submit' disabled={!isFormValid || isLoading}>
+          {isLoading ? 'Сохранение...' : 'Редактировать'}
+        </button>
+
+        <Notification modifier='profile'/>
+      </form>
+      <Link className='profile__link' to='/' onClick={onSignOut}>Выйти из аккаунта</Link>
     </section>
   );
 }

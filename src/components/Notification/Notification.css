@@ -1,0 +1,113 @@
+.notification {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  flex-direction: column;
+  height: 120px;
+  width: 100%;
+  max-width: 396px;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: visibility .1s linear, opacity .1s linear;
+  z-index: 5;
+}
+
+.notification_place_auth {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.notification_place_profile {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.notification_place_abstract-movies,
+.notification_place_main{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.notification_visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.notification__header {
+  display: flex;
+  margin: 4px;
+  padding-bottom: 4px;
+  border-bottom: #8b8b8b solid 2px;
+}
+
+.notification__icon {
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.notification__icon_errored {
+  background-image: url("../../images/error-ico.svg");
+}
+
+.notification__icon_successful {
+  background-image: url("../../images/success-ico.svg");
+}
+
+.notification__header-title {
+  margin: 0 0 0 10px;
+  padding: 0;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #000;
+}
+
+@media screen and (max-width: 600px) {
+  .notification__header-title {
+    margin-top: 4px;
+    font-size: 16px;
+  }
+}
+
+.notification__close-btn {
+  margin-left: auto;
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-color: #202020;
+  background-image: url("../../images/close-ico.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  transition: opacity .3s linear;
+}
+
+.notification__close-btn:hover {
+  opacity: .5;
+}
+
+.notification__text {
+  margin: 0;
+  padding: 4px;
+  flex-grow: 1;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #000;
+}
+
+@media screen and (max-width: 600px) {
+  .notification__text {
+    font-size: 12px;
+  }
+}

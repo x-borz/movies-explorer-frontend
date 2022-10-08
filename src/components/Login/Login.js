@@ -1,8 +1,8 @@
 import Auth from "../Auth/Auth";
 
-function Login(props) {
+function Login({onLogin, isLoading}) {
   return (
-    <Auth isRegister={false}/>
+    <Auth isRegister={false} isLoading={isLoading} onSubmit={onLogin}/>
   );
 }
 
