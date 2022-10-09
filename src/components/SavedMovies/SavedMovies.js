@@ -32,7 +32,7 @@ function SavedMovies({savedMovies, setSavedMovies}) {
     setSavedMoviesToShow(filterMovies(savedMovies, searchString, isChecked));
   }, [savedMovies]);
 
-  const hasNoContent = savedMovies.length === 0;
+  const hasNoContent = savedMoviesToShow.length === 0;
 
   return (
     <AbstractMovies

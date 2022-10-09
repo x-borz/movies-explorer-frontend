@@ -37,17 +37,17 @@ function Auth({isRegister, isLoading, onSubmit}) {
         {
           isRegister &&
           <>
-            <label className='auth__label'>Имя</label>
-            <input className={`auth__input ${errors.name ? 'auth__input_errored' : ''}`} name='name' type='text' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' onChange={handleChange} onInput={handleNameInput} disabled={isLoading}/>
+            <label className='auth__label' htmlFor='auth-name'>Имя</label>
+            <input className={`auth__input ${errors.name ? 'auth__input_errored' : ''}`} name='name' type='text' id='auth-name' required minLength='2' maxLength='30' pattern='^[a-zA-Zа-яА-ЯёЁ \-]+$' onChange={handleChange} onInput={handleNameInput} disabled={isLoading}/>
             <span className='auth__error'>{errors.name || ''}</span>
           </>
         }
-        <label className='auth__label'>E-mail</label>
-        <input className={`auth__input ${errors.email ? 'auth__input_errored' : ''}`} name='email' type='text' pattern='^[\w!#$%&’*+/=?`{|}~^-]+(?:\.[\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$' required onChange={handleChange} onInput={handleEmailInput} disabled={isLoading}/>
+        <label className='auth__label' htmlFor='auth-email'>E-mail</label>
+        <input className={`auth__input ${errors.email ? 'auth__input_errored' : ''}`} name='email' type='text' id='auth-email' pattern='^[\w!#$%&’*+/=?`{|}~^-]+(?:\.[\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$' required onChange={handleChange} onInput={handleEmailInput} disabled={isLoading}/>
         <span className='auth__error'>{errors.email || ''}</span>
 
-        <label className='auth__label'>Пароль</label>
-        <input className={`auth__input ${errors.password ? 'auth__input_errored' : ''}`} name='password' type='password' required onChange={handleChange} disabled={isLoading}/>
+        <label className='auth__label' htmlFor='auth-password'>Пароль</label>
+        <input className={`auth__input ${errors.password ? 'auth__input_errored' : ''}`} name='password' type='password' id='auth-password' required onChange={handleChange} disabled={isLoading}/>
         <span className='auth__error'>{errors.password || ''}</span>
 
         <button className={`auth__submit-btn ${!isRegister ? 'auth__submit-btn_place_login' : ''} ${!isValid || isLoading ? 'auth__submit-btn_disabled' : ''}`} type='submit' disabled={!isValid || isLoading}>
