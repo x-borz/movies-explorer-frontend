@@ -16,7 +16,7 @@ function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString,
   }
 
   const handleCheckboxClick = () => {
-    if (!hasNoContent) {
+    if (isSavedMoviesPage || (!isSavedMoviesPage && !hasNoContent)) {
       onSubmit(searchString, !isChecked, true);
     }
   }
