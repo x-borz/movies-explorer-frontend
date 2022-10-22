@@ -5,13 +5,17 @@ import {handleEmailInput, handleNameInput} from "../../utils/utils";
 import {useContext, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Notification from "../Notification/Notification";
+import NotificationContext from "../../contexts/NotificationContext";
 
 function Profile({isLoading, onSignOut, onUserUpdate}) {
   const {name, email} = useContext(CurrentUserContext).currentUser;
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
+  const {closeNotification} = useContext(NotificationContext);
+
   const handleSubmit = evt => {
     evt.preventDefault();
+    closeNotification();
     onUserUpdate(values);
   }
 

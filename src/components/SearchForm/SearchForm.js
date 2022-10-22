@@ -4,10 +4,11 @@ import {useContext} from "react";
 import NotificationContext from "../../contexts/NotificationContext";
 
 function SearchForm({isSavedMoviesPage, onSubmit, searchString, setSearchString, isChecked, setIsChecked, hasNoContent}) {
-  const {showFailedNotification} = useContext(NotificationContext);
+  const {showFailedNotification, closeNotification} = useContext(NotificationContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    closeNotification();
     if (!searchString) {
       showFailedNotification('Нужно ввести ключевое слово');
       return;

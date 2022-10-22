@@ -4,7 +4,8 @@
   visibility: hidden;
   flex-direction: column;
   height: 120px;
-  width: 100%;
+  width: calc(100vw - 2 * 14px);
+  min-width: 292px;
   max-width: 396px;
   background-color: #fff;
   border-radius: 10px;
@@ -31,7 +32,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 }
 
 .notification_visible {

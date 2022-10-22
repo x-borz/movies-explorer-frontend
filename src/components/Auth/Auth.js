@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 import {useFormWithValidation} from "../Forms/Forms";
 import {handleEmailInput, handleNameInput} from "../../utils/utils";
 import Notification from "../Notification/Notification";
+import {useContext} from "react";
+import NotificationContext from "../../contexts/NotificationContext";
 
 function Auth({isRegister, isLoading, onSubmit}) {
   const params = isRegister ?
@@ -24,8 +26,11 @@ function Auth({isRegister, isLoading, onSubmit}) {
 
   const {values, handleChange, errors, isValid} = useFormWithValidation();
 
+  const {closeNotification} = useContext(NotificationContext);
+
   const submit = evt => {
     evt.preventDefault();
+    closeNotification();
     onSubmit(values);
   }
 
